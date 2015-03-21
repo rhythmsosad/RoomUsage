@@ -27,20 +27,6 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                        @*<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                                <i class="fa fa-wrench"></i>
-                            </a>
-                            <ul class="dropdown-menu dropdown-user">
-                                <li>
-                                    <a href="#">Config option 1</a>
-                                </li>
-                                <li>
-                                    <a href="#">Config option 2</a>
-                                </li>
-                            </ul>
-                            <a class="close-link">
-                                <i class="fa fa-times"></i>
-                            </a>*@
                     </div>
                 </div>
                 <div class="ibox-content">
@@ -52,28 +38,32 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Import Result</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" id="divResult">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @section Styles {
     @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
     @Styles.Render("~/Content/plugins/dropzone/dropZoneStyles")
 }
 @section Scripts {
-    @*@Scripts.Render("~/plugins/jeditable")
-    @Scripts.Render("~/plugins/dataTables")
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var swfPath = "@Url.Content("~/scripts/plugins/dataTables/swf/copy_csv_xls_pdf.swf")";
-            $('.dataTables-example').dataTable({
-                "dom": 'T<"clear">lfrtip',
-                "tableTools": {
-                    "sSwfPath": swfPath
-                }
-            });
-
-        });
-    </script>*@
 
 @Scripts.Render("~/plugins/dropZone")
+@Scripts.Render("~/plugins/dataTables")
 
 <script type="text/javascript">
     $(document).ready(function () {
@@ -81,8 +71,8 @@
         Dropzone.options.myAwesomeDropzone = {
 
             autoProcessQueue: false,
-            parallelUploads: 100,
-            maxFiles: 100,
+            parallelUploads: 1,
+            maxFiles: 1,
             paramName: "files",
 
             // Dropzone settings
@@ -97,8 +87,22 @@
                 this.on("sendingmultiple", function () {
                 });
                 this.on("successmultiple", function (files, response) {
+                    alert(1);
                 });
                 this.on("errormultiple", function (files, response) {
+                });
+                this.on("success", function (files, response) {
+                    //console.log(response);
+                    $("#divResult").empty();
+                    $("#divResult").html(response.Message);
+
+                    var pluginPath = "@Url.Content("~/scripts/plugins/dataTables/swf/copy_csv_xls_pdf.swf")";
+                    $('.dataTables-example').dataTable({
+                        "dom": 'T<"clear">lfrtip',
+                        "tableTools": {
+                            "sSwfPath": pluginPath
+                        }
+                    });
                 });
             }
 
