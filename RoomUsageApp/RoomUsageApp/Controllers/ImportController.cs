@@ -56,7 +56,7 @@ namespace RoomUsageApp.Controllers
 
                         sb.Append("</tr>");
                         sb.Append("<tbody>");
-                        foreach(DataRow row in result.Tables[0].Rows)
+                        foreach(DataRow row in result.Tables[0].AsEnumerable().Take(100))
                         {
                             sb.AppendFormat(rowFormat, row.ItemArray);
                         }
