@@ -77,5 +77,10 @@ namespace RoomUsageApp.Controllers
             }
             return Json(new { Message = "Error in saving file" });
         }
+
+        public ActionResult Test()
+        {
+            return View();
+        }
     }
 }

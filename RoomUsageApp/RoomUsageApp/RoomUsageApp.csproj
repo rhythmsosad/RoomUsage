@@ -727,6 +727,7 @@
     <Content Include="Scripts\jquery-2.1.1.min.map" />
     <Content Include="Scripts\plugins\justified-gallery\README.md" />
     <Content Include="Views\Import\ImportResult.cshtml" />
+    <Content Include="Views\Import\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
