@@ -13,6 +13,19 @@ namespace RoomUsageApp.Controllers
         public ActionResult Index()
         {
             Class1 model = new Class1();
+
+            List<Class1> data1 = model.GetName();
+            List<Class1> data2 = model.GetSalary();
+
+            // where
+            var result = data1.Where(x => x.name == "name1");
+
+            var oResult = from o in data1
+                          where o.name == "name1"
+                          select o;
+
+            //
+
             model.name = "Name";
             model.surname = "Surname";
             return View(model);
