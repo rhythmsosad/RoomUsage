@@ -24,7 +24,7 @@ namespace RoomUsageApp.Controllers
                           where o.name == "name1"
                           select o;
 
-            //
+            // chin
 
             model.name = "Name";
             model.surname = "Surname";
