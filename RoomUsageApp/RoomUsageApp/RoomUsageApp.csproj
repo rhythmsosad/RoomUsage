@@ -705,11 +705,13 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\Entities\Building.cs">
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
@@ -777,6 +779,7 @@
     <Content Include="Scripts\plugins\justified-gallery\README.md" />
     <Content Include="Views\Import\ImportResult.cshtml" />
     <Content Include="Views\Import\Test.cshtml" />
+    <Content Include="Views\Test2\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
