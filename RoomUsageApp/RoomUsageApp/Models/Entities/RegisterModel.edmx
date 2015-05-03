@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_CHINModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="No" Type="nvarchar(max)" />
+          <Property Name="FacultyId" Type="int" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" />
+          <Property Name="AbbrName" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_Building_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="Building" Type="Self.Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_CHINModelStoreContainer">
+          <EntitySet Name="Building" EntityType="Self.Building" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="chula" store:Type="Tables" />
+          <AssociationSet Name="FK_Building_Faculty" Association="Self.FK_Building_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_CHINModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AbbrName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Building" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Faculty" ToRole="Building" />
+        </EntityType>
+        <EntityContainer Name="DB_CHINEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Faculty" EntityType="Self.Faculty" />
+          <EntitySet Name="Building" EntityType="DB_CHINModel.Building" />
+          <AssociationSet Name="FK_Building_Faculty" Association="DB_CHINModel.FK_Building_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="No" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyId" Type="Int32" />
+          <NavigationProperty Name="Faculty" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Building" ToRole="Faculty" />
+        </EntityType>
+        <Association Name="FK_Building_Faculty">
+          <End Type="DB_CHINModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.Building" Role="Building" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Building">
+              <PropertyRef Name="FacultyId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_CHINModelStoreContainer" CdmEntityContainer="DB_CHINEntities">
+          <EntitySetMapping Name="Faculty">
+            <EntityTypeMapping TypeName="DB_CHINModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="AbbrName" ColumnName="AbbrName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Building">
+            <EntityTypeMapping TypeName="DB_CHINModel.Building">
+              <MappingFragment StoreEntitySet="Building">
+                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
+                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
