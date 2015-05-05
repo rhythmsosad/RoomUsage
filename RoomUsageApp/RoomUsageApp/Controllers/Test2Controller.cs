@@ -18,11 +18,12 @@ namespace RoomUsageApp.Controllers
             List<Class1> data2 = model.GetSalary();
 
             // where
-            var result = data1.Where(x => x.name == "name1");
+            var result = data1.OrderBy(x => x.name).Where(x => x.name == "name1").Select(x => x.salary).Sum();
 
-            var oResult = from o in data1
+            var oResult = (from o in data1
                           where o.name == "name1"
-                          select o;
+                          orderby o.name
+                          select o.salary).Sum();
 
             // chin
 
