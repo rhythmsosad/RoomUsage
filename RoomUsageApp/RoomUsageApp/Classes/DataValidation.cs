@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Web;
 
+
 namespace RoomUsageApp.Classes
 {
     public class DataValidation
@@ -29,10 +30,13 @@ namespace RoomUsageApp.Classes
             // Add Validaton แต่ละตัวลงไปใน List นี้
             List<ValidationBase> rules = new List<ValidationBase>()
             {
-                new ClassCodeValidation() { data = data }
+                new ClassCodeValidation() { data = data },
+                new tonValidation() { data = data }
+
             };
 
-            foreach(ValidationBase rule in rules)
+         
+            foreach (ValidationBase rule in rules)
             {
                 if(!rule.IsValid())
                 {
@@ -40,6 +44,8 @@ namespace RoomUsageApp.Classes
                     ErrorMessage.Add(rule.Message);
                 }
             }
+
+         
 
             return result;
         }
