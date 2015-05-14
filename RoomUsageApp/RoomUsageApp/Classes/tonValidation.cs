@@ -12,6 +12,8 @@ namespace RoomUsageApp.Classes
         {
 
             Boolean validateFlag = false;
+
+            //// validate DAY1-7 Start
              int day1ValidateCount = data.AsEnumerable().Where(o => o["DAY1"].ToString() != ("") 
              && o["DAY1"].ToString() != ("MO") 
              && o["DAY1"].ToString() != ("TU")
@@ -74,7 +76,16 @@ namespace RoomUsageApp.Classes
             && o["DAY7"].ToString() != ("FR")
             && o["DAY7"].ToString() != ("SA")
             && o["DAY7"].ToString() != ("SU")).Count();
+            ///////////// end validate DAY1-7
 
+            //////////// validate SEMESTER 1 2 3
+
+            int semesterValidateCount = data.AsEnumerable().Where(o => o["SEMESTER"].ToString() != ("")
+            && o["SEMESTER"].ToString() != ("1")
+            && o["SEMESTER"].ToString() != ("2")
+            && o["SEMESTER"].ToString() != ("3")).Count();
+
+            /////////////// end validate SEMESTER
             Message = "";
             if (day1ValidateCount > 0)
             {
@@ -113,6 +124,18 @@ namespace RoomUsageApp.Classes
                 Message += string.Format("<br>มีแถวใน Column DAY7 ที่ไม่ใช่ SU,MO,TU,WE,TH,FR,SA จำนวน {0} แถว กรุณาตรวจสอบและนำเข้าอีกครั้ง", day7ValidateCount);
                 validateFlag = true;
             }
+
+            if (semesterValidateCount > 0)
+            {
+                Message += string.Format("<br>มีแถวใน Column SEMETER ที่ไม่ใช่ 1,2,3 จำนวน {0} แถว กรุณาตรวจสอบและนำเข้าอีกครั้ง", semesterValidateCount);
+                validateFlag = true;
+            }
+       
+
+            var dateTime = DateTime.Now;
+           // int count = data.AsEnumerable().Where(o => o["YEAR"].DateofBirth.MONTH == dateTime.Month ).Count();
+           // int count1 = data.AsEnumerable().Where(o => DateTime.Parse(o["YEAR"].DateofBirth).Month == dateTime.Month).Count();
+            //DateTime.Parse(o["YEAR"].DateofBirth).Month
 
             if (validateFlag)
             {
