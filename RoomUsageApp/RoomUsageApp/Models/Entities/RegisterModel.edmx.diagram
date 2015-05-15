@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="cdf5c13b760a4195a4c04f126a4aae2f" Name="Diagram1" ZoomLevel="85">
+      <Diagram DiagramId="cdf5c13b760a4195a4c04f126a4aae2f" Name="Diagram1" ZoomLevel="124">
         <EntityTypeShape EntityType="DB_CHINModel.Building" Width="1.5" PointX="3" PointY="1.125" />
         <EntityTypeShape EntityType="DB_CHINModel.Course" Width="1.5" PointX="3" PointY="5.125" />
         <EntityTypeShape EntityType="DB_CHINModel.Faculty" Width="1.5" PointX="0.75" PointY="3.25" />
