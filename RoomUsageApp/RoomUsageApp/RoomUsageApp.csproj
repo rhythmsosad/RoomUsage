@@ -704,8 +704,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Classes\CheckFormatTime.cs" />
     <Compile Include="Classes\ClassCodeValidation.cs" />
     <Compile Include="Classes\DataValidation.cs" />
+    <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
