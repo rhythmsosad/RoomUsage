@@ -281,7 +281,8 @@ namespace RoomUsageApp
 
             bundles.Add(new ScriptBundle("~/ScriptsCustom/library").Include(
                       "~/ScriptsCustom/chosen/chosen.jquery.min.js",
-                      "~/ScriptsCustom/jquery-timepicker-master/jquery.timepicker.min.js"
+                      "~/ScriptsCustom/jquery-timepicker-master/jquery.timepicker.min.js",
+                      "~/ScriptsCustom/bootbox.min.js"
                       ));
         }
     }

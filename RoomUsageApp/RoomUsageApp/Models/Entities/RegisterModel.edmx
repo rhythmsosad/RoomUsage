@@ -55,8 +55,8 @@
           <Property Name="DAY5" Type="nvarchar" MaxLength="255" />
           <Property Name="DAY6" Type="nvarchar" MaxLength="255" />
           <Property Name="DAY7" Type="nvarchar" MaxLength="255" />
-          <Property Name="STARTTIME" Type="float" />
-          <Property Name="ENDTIME" Type="float" />
+          <Property Name="STARTTIME" Type="nvarchar" MaxLength="255" />
+          <Property Name="ENDTIME" Type="nvarchar" MaxLength="255" />
           <Property Name="REALREG" Type="float" />
           <Property Name="TOTALREG" Type="float" />
           <Property Name="BUILDINGNAME" Type="nvarchar" MaxLength="255" />
@@ -412,8 +412,8 @@
           <Property Name="DAY5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DAY6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="DAY7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="STARTTIME" Type="Double" />
-          <Property Name="ENDTIME" Type="Double" />
+          <Property Name="STARTTIME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ENDTIME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="REALREG" Type="Double" />
           <Property Name="TOTALREG" Type="Double" />
           <Property Name="BUILDINGNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
