@@ -10,7 +10,7 @@ namespace RoomUsageApp.Classes
     public class teeValidation : ValidationBase
     {
         Regex NumberPattern = new Regex("^[0-9]+$");
-        Regex YearPattern = new Regex("^d{4}?$");
+        int YearInvalid;
         bool Valid;
         public override bool IsValid()
         {
@@ -59,21 +59,20 @@ namespace RoomUsageApp.Classes
               //Check Year 
             
              var queryYear = data.AsEnumerable().Where(r => (r["YEAR"].ToString() != ""));
-             var queryYearPattern = data.AsEnumerable().Where(r => (r["YEAR"].ToString() != ""));
+             
               if (queryYear.Count() > 0)
               {
                   DataTable Validate = queryYear.CopyToDataTable();
                   queryYear = Validate.AsEnumerable().Where(
                       r => !(NumberPattern.IsMatch(r["YEAR"].ToString())));
               }
-              else
-              {
-                  //Check Valid Year
-                 
-                      DataTable Validate = queryYearPattern.CopyToDataTable();
-                      queryYearPattern = Validate.AsEnumerable().Where(
-                          r => !(YearPattern.IsMatch(r["YEAR"].ToString())));
-              }
+            if (queryYear.Count() == 0)
+            {
+                //Check Valid Year
+                YearInvalid = data.AsEnumerable().Where(
+                    o => (o["YEAR"].ToString().Length > 4 )).Count();
+
+            }
 
             if (queryTotalReg.Count() > 0)
             {
@@ -102,12 +101,12 @@ namespace RoomUsageApp.Classes
             }
             if (queryYear.Count() > 0)
             {
-                Message += string.Format("<br>มีเลขปีจำนวน {0} รายการไม่อยู่ในรูปแบบตัวเลข กรุณาตรวจสอบและนำเข้าอีกครั้ง", queryYear.Count());
+                Message += string.Format("<br>มีปีจำนวน {0} รายการไม่อยู่ในรูปแบบตัวเลข กรุณาตรวจสอบและนำเข้าอีกครั้ง", queryYear.Count());
                 Valid = false;
             }
-            if (queryYearPattern.Count() > 0)
+            if (YearInvalid > 0)
             {
-                Message += string.Format("<br>มีเลขปีจำนวน {0} รายการไม่อยู่ในรูปแบบปี 4 หลัก กรุณาตรวจสอบและนำเข้าอีกครั้ง", queryYearPattern.Count());
+                Message += string.Format("<br>มีปีจำนวน {0} รายการมีจำนวนหลักไม่เป็น 4 หลัก กรุณาตรวจสอบและนำเข้าอีกครั้ง", YearInvalid);
                 Valid = false;
             }
             if (Valid)
