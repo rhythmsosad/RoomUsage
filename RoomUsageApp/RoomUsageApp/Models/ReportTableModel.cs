@@ -16,7 +16,10 @@ namespace RoomUsageApp.Models
         public string StartTime { get; set; }
         public string EndTime { get; set; }
 
-        public DataTable QueryReport()
+        public List<string> ReportHeader { get; set; }
+        public List<List<object>> ReportData { get; set; }
+
+        public void QueryReport()
         {
             // 320005
             using (var entities = new DB_CHINEntities())
@@ -85,7 +88,15 @@ namespace RoomUsageApp.Models
                     }
                 }
 
-                return dt;
+                ReportHeader = new List<string>();
+                foreach(DataColumn dc in dt.Columns)
+                {
+                    ReportHeader.Add(dc.ColumnName);
+                }
+
+                ReportData = dt.AsEnumerable().Select(o => o.ItemArray.ToList()).ToList();
+
+                //return dt;
             }
         }
 
