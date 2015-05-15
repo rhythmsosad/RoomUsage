@@ -60,8 +60,8 @@
           <Property Name="REALREG" Type="float" />
           <Property Name="TOTALREG" Type="float" />
           <Property Name="BUILDINGNAME" Type="nvarchar" MaxLength="255" />
-          <Property Name="BUILDINGNO" Type="float" />
-          <Property Name="ROOMNO" Type="float" />
+          <Property Name="BUILDINGNO" Type="nvarchar" MaxLength="255" />
+          <Property Name="ROOMNO" Type="nvarchar" MaxLength="255" />
           <Property Name="ROOMTYPE" Type="nvarchar" MaxLength="255" />
           <Property Name="NUMCLASSSEAT" Type="float" />
           <Property Name="STUDYPROGRAM" Type="nvarchar" MaxLength="255" />
@@ -173,6 +173,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="DELETE_REGTEMP" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="chula" />
+        <Function Name="IMPORT_DATA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="chula" />
         <EntityContainer Name="DB_CHINModelStoreContainer">
           <EntitySet Name="Building" EntityType="Self.Building" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="chula" store:Type="Tables" />
@@ -242,6 +244,8 @@
             <End Role="ScheduleTime" EntitySet="ScheduleTime" />
           </AssociationSet>
           <EntitySet Name="RegistrationTemp" EntityType="DB_CHINModel.RegistrationTemp" />
+          <FunctionImport Name="IMPORT_DATA" />
+          <FunctionImport Name="DELETE_REGTEMP" />
         </EntityContainer>
         <EntityType Name="Building">
           <Key>
@@ -417,8 +421,8 @@
           <Property Name="REALREG" Type="Double" />
           <Property Name="TOTALREG" Type="Double" />
           <Property Name="BUILDINGNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
-          <Property Name="BUILDINGNO" Type="Double" />
-          <Property Name="ROOMNO" Type="Double" />
+          <Property Name="BUILDINGNO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ROOMNO" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="ROOMTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="NUMCLASSSEAT" Type="Double" />
           <Property Name="STUDYPROGRAM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
@@ -532,6 +536,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="IMPORT_DATA" FunctionName="DB_CHINModel.Store.IMPORT_DATA" />
+          <FunctionImportMapping FunctionImportName="DELETE_REGTEMP" FunctionName="DB_CHINModel.Store.DELETE_REGTEMP" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

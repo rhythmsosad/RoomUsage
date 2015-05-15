@@ -12,6 +12,8 @@ namespace RoomUsageApp.Models.Entities
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class DB_CHINEntities : DbContext
     {
@@ -32,5 +34,15 @@ namespace RoomUsageApp.Models.Entities
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<ScheduleTime> ScheduleTime { get; set; }
         public virtual DbSet<RegistrationTemp> RegistrationTemp { get; set; }
+    
+        public virtual int IMPORT_DATA()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IMPORT_DATA");
+        }
+    
+        public virtual int DELETE_REGTEMP()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_REGTEMP");
+        }
     }
 }

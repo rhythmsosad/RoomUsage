@@ -80,9 +80,11 @@ namespace RoomUsageApp.Controllers
                                 {
                                     TypeConverter convDouble = TypeDescriptor.GetConverter(typeof(double?));
 
-                                    entities.RegistrationTemp.AddRange(result.Tables[0].AsEnumerable().Select(o => new RegistrationTemp() {
+                                    entities.DELETE_REGTEMP();
+
+                                    entities.RegistrationTemp.AddRange(result.Tables[0].AsEnumerable().Where(o => o["YEAR"].ToString().Length > 0).Select(o => new RegistrationTemp() {
                                         BUILDINGNAME = o["BUILDINGNAME"].ToString(),
-                                        BUILDINGNO = (double?)convDouble.ConvertFrom(o["BUILDINGNO"].ToString()),
+                                        BUILDINGNO = o["BUILDINGNO"].ToString(),
                                         COURSECODE = (double?)convDouble.ConvertFrom(o["COURSECODE"].ToString()),
                                         DAY1 = o["DAY1"].ToString(),
                                         DAY2 = o["DAY2"].ToString(),
@@ -98,7 +100,7 @@ namespace RoomUsageApp.Controllers
                                         NAMEENGABBR = o["NAMEENGABBR"].ToString(),
                                         NUMCLASSSEAT = (double?)convDouble.ConvertFrom(o["NUMCLASSSEAT"].ToString()),
                                         REALREG = (double?)convDouble.ConvertFrom(o["REALREG"].ToString()),
-                                        ROOMNO = (double?)convDouble.ConvertFrom(o["ROOMNO"].ToString()),
+                                        ROOMNO = o["ROOMNO"].ToString(),
                                         ROOMTYPE = o["ROOMTYPE"].ToString(),
                                         SECTION = (double?)convDouble.ConvertFrom(o["SECTION"].ToString()),
                                         SEMESTER = (double?)convDouble.ConvertFrom(o["SEMESTER"].ToString()),
@@ -107,7 +109,7 @@ namespace RoomUsageApp.Controllers
                                         TEACHTYPE = o["TEACHTYPE"].ToString(),
                                         TOTALREG = (double?)convDouble.ConvertFrom(o["TOTALREG"].ToString()),
                                         YEAR = (double?)convDouble.ConvertFrom(o["YEAR"].ToString())
-                                    }));
+                                    }).ToList());
 
                                     entities.SaveChanges();
 

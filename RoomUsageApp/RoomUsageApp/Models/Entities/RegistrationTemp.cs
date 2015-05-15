@@ -36,8 +36,8 @@ namespace RoomUsageApp.Models.Entities
         public Nullable<double> REALREG { get; set; }
         public Nullable<double> TOTALREG { get; set; }
         public string BUILDINGNAME { get; set; }
-        public Nullable<double> BUILDINGNO { get; set; }
-        public Nullable<double> ROOMNO { get; set; }
+        public string BUILDINGNO { get; set; }
+        public string ROOMNO { get; set; }
         public string ROOMTYPE { get; set; }
         public Nullable<double> NUMCLASSSEAT { get; set; }
         public string STUDYPROGRAM { get; set; }
