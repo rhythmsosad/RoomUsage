@@ -126,8 +126,8 @@
                     $("#FC").empty();
                     $('<option>').val("").text("").appendTo('#FC');
                     $.each(data, function (index, item) {
-                        var opt = $('<option>').val(item.BuildingNo).text(item.Name);
-                        if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
+                        var opt = $('<option>').val(item.FacultyCode).text(item.Name);
+                        if (typeof (buVal) != "undefined" && buVal == item.FacultyCode) {
                             opt.attr("selected", "selected");
                         }
                         opt.appendTo('#FC');
@@ -145,9 +145,9 @@
         function initBuilding() {
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
+                url: "@Url.Action("BuildingLutByFaculty", "Building", new { area = "" })",
                 data: {
-
+                    facultyCode: facultyNo
                 },
                 success: function (data, textStatus, jqXHR) {
                     //console.log(data);

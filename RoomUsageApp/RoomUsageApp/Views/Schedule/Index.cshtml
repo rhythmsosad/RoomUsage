@@ -16,6 +16,20 @@
                         <div class="ibox-content">
                             <div class="row">
                                 <div class="form-group">
+                                    <label for="BU" class="col-sm-1 control-label">Faculty</label>
+                                    <div class="col-sm-4">
+                                        <select class="form-control m-b" name="FC" id="FC" data-placeholder="Select a faculty" @*value="@Model.s"*@></select>
+                                        @*<select class="form-control m-b" name="account">
+                                                <option>Engineer 1</option>
+                                                <option>Engineer 2</option>
+                                                <option>Engineer 3</option>
+                                                <option>Engineer 4</option>
+                                            </select>*@
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
                                     <label for="BU" class="col-sm-1 control-label">Building</label>
                                     <div class="col-sm-4">
                                         <select class="form-control m-b" name="BU" id="BU" data-placeholder="Select a building" @*value="@Model.s"*@></select>
@@ -154,7 +168,7 @@
     <script type="text/javascript">
         $(function () {
             initSearch();
-          //  initTable();
+            //  initTable();
         });
 
         $('#button').on('click', function () {
@@ -162,16 +176,47 @@
 
         });
         function initSearch() {
+            initFaculty();
             initBuilding();
             initRoom();
             initTime();
         }
-        function initBuilding() {
+        function initFaculty() {
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
+                url: "@Url.Action("FacultyLut", "Faculty", new { area = "" })",
                 data: {
 
+                },
+                success: function (data, textStatus, jqXHR) {
+                    //console.log(data);
+                    $("#FC").empty();
+                    $('<option>').val("").text("").appendTo('#FC');
+                    $.each(data, function (index, item) {
+                        var opt = $('<option>').val(item.FacultyCode).text(item.Name);
+                        if (typeof (buVal) != "undefined" && buVal == item.FacultyCode) {
+                            opt.attr("selected", "selected");
+                        }
+                        opt.appendTo('#FC');
+                    });
+                    $("#FC").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
+                    $("#FC").chosen().change(function () {
+                        //initBranch($(this).val());
+                        //initDept($(this).val());
+                        //initRoom($(this).val());
+                        initBuilding($(this).val());
+                    });
+                },
+                dataType: "json"
+            });
+        }
+        function initBuilding(facultyNo) {
+            console.log("facultyNo", facultyNo);
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("BuildingLutByFaculty", "Building", new { area = "" })",
+                data: {
+                    facultyCode: facultyNo
                 },
                 success: function (data, textStatus, jqXHR) {
                     //console.log(data);
@@ -228,13 +273,14 @@
         function initTable() {
             var chck = $("input:checkbox:checked").map(function () {
                 return $(this).val();
-            }).get(); 
+            }).get();
             console.log("chck", chck);
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("Query", "Schedule", new { area = "" })",
                 data: {
                     BuildingNo: $("#BU").val(),
+                    //BuildingNo:"10011",
                     RoomNo: $("#RO").val(),
                     Days: chck,
                     StartTime: $("#timeFrom").val(),
