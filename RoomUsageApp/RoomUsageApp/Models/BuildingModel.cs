@@ -18,5 +18,17 @@ namespace RoomUsageApp.Models
                 return item.ToList();
             }
         }
+
+        public List<Building> QueryLutBuildingByFaculty(string facultyCode)
+        {
+            using (var entities = new DB_CHINEntities())
+            {
+                var item = from o in entities.Building
+                           where o.FacultyCode == facultyCode
+                           select o;
+
+                return item.ToList();
+            }
+        }
     }
 }

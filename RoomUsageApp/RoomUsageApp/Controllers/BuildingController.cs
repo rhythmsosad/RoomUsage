@@ -22,5 +22,12 @@ namespace RoomUsageApp.Controllers
             List<Building> result = model.QueryLutBuilding();
             return Json(result.Select(o => new { BuildingNo = o.BuildingNo, Name = o.NameTh + " (" + o.NameEn + ")" }));
         }
+
+        public ActionResult BuildingLutByFaculty(string facultyCode)
+        {
+            BuildingModel model = new BuildingModel();
+            List<Building> result = model.QueryLutBuildingByFaculty(facultyCode);
+            return Json(result.Select(o => new { BuildingNo = o.BuildingNo, Name = o.NameTh + " (" + o.NameEn + ")" }));
+        }
     }
 }
