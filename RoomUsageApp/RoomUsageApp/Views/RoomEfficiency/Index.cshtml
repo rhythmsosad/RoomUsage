@@ -109,8 +109,10 @@
         initFaculty();
         initBuilding();
         //initRoom();
-        initChart();
-        initChart2();
+        //initChart();
+        //initChart2();
+        bindChart1();
+        bindChart2();
     });
     function initFaculty() {
         $.ajax({
@@ -211,7 +213,7 @@
         }
         function bindChart() {
             var barData = {
-                labels:@Html.Raw(Model.Labels),
+                labels: @Html.Raw(Model.Labels),
                 datasets: [
                     {
                         label: "Used Time",

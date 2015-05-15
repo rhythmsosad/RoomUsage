@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RoomUsageApp.Models;
 
 namespace RoomUsageApp.Controllers
 {
@@ -11,7 +12,9 @@ namespace RoomUsageApp.Controllers
         // GET: RoomEfficiency
         public ActionResult Index()
         {
-            return View();
+            ReportChartByTypeModel model = new ReportChartByTypeModel();
+            model.QueryReportAllFaculty();
+            return View(model);
         }
     }
 }
