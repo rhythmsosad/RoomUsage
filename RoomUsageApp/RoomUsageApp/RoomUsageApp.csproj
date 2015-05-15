@@ -745,6 +745,7 @@
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
+    <Compile Include="Controllers\FacultyController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\RoomEfficiencyController.cs" />
@@ -791,6 +792,7 @@
     <Compile Include="Models\Entities\ScheduleTime.cs">
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\FacultyModel.cs" />
     <Compile Include="Models\memberClass.cs" />
     <Compile Include="Models\ReportChartByTypeModel.cs" />
     <Compile Include="Models\ReportModelBase.cs" />
@@ -860,6 +862,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Building\" />
+    <Folder Include="Views\Faculty\" />
     <Folder Include="Views\Room\" />
   </ItemGroup>
   <ItemGroup>

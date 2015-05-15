@@ -13,7 +13,7 @@ namespace RoomUsageApp.Controllers
         // GET: Test
         public ActionResult Index()
         {
-            ReportTableModel model = new ReportTableModel();
+            ReportChartByTypeModel model = new ReportChartByTypeModel();
             model.BuildingNo = "320005";
             model.QueryReport();
             return View();
