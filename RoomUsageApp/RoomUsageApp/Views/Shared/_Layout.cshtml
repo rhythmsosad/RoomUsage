@@ -17,6 +17,8 @@
     @Styles.Render("~/font-awesome/css")                                                
     @Styles.Render("~/Content/css")
 
+    @Styles.Render("~/Content/plugins/dataTables/dataTablesStyles")
+
     @Styles.Render("~/ScriptsCustom/style")
 </head>
 <body>
@@ -58,6 +60,7 @@
     <!-- Skin config script - only for demo purpose-->
     @Scripts.Render("~/bundles/skinConfig")
 
+    @Scripts.Render("~/plugins/dataTables")
     @Scripts.Render("~/ScriptsCustom/library")
 
     <!-- Handler for local scripts -->

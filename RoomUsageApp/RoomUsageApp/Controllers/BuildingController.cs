@@ -20,7 +20,7 @@ namespace RoomUsageApp.Controllers
         {
             BuildingModel model = new BuildingModel();
             List<Building> result = model.QueryLutBuilding();
-            return Json(result.Select(o => new { BuildingNo = o.BuildingNo, Name = o.NameTh }));
+            return Json(result.Select(o => new { BuildingNo = o.BuildingNo, Name = o.NameTh + " (" + o.NameEn + ")" }));
         }
     }
 }

@@ -740,6 +740,7 @@
     <Compile Include="Classes\CheckFormatTime.cs" />
     <Compile Include="Classes\ClassCodeValidation.cs" />
     <Compile Include="Classes\DataValidation.cs" />
+    <Compile Include="Classes\ReportTimePeriod.cs" />
     <Compile Include="Classes\teeValidaton.cs" />
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />

@@ -274,7 +274,7 @@ namespace RoomUsageApp
                       "~/Content/plugins/jsTree/style.css"));
 
             // Term Project
-            bundles.Add(new ScriptBundle("~/ScriptsCustom/style").Include(
+            bundles.Add(new StyleBundle("~/ScriptsCustom/style").Include(
                      "~/ScriptsCustom/chosen/chosen.min.css",
                      "~/ScriptsCustom/jquery-timepicker-master/jquery.timepicker.css"
                      ));
