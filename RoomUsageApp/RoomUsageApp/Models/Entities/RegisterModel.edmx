@@ -244,8 +244,8 @@
             <End Role="ScheduleTime" EntitySet="ScheduleTime" />
           </AssociationSet>
           <EntitySet Name="RegistrationTemp" EntityType="DB_CHINModel.RegistrationTemp" />
-          <FunctionImport Name="IMPORT_DATA" />
           <FunctionImport Name="DELETE_REGTEMP" />
+          <FunctionImport Name="IMPORT_DATA" />
         </EntityContainer>
         <EntityType Name="Building">
           <Key>
@@ -536,8 +536,8 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <FunctionImportMapping FunctionImportName="IMPORT_DATA" FunctionName="DB_CHINModel.Store.IMPORT_DATA" />
           <FunctionImportMapping FunctionImportName="DELETE_REGTEMP" FunctionName="DB_CHINModel.Store.DELETE_REGTEMP" />
+          <FunctionImportMapping FunctionImportName="IMPORT_DATA" FunctionName="DB_CHINModel.Store.IMPORT_DATA" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

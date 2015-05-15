@@ -35,14 +35,14 @@ namespace RoomUsageApp.Models.Entities
         public virtual DbSet<ScheduleTime> ScheduleTime { get; set; }
         public virtual DbSet<RegistrationTemp> RegistrationTemp { get; set; }
     
-        public virtual int IMPORT_DATA()
-        {
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IMPORT_DATA");
-        }
-    
         public virtual int DELETE_REGTEMP()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("DELETE_REGTEMP");
+        }
+    
+        public virtual int IMPORT_DATA()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("IMPORT_DATA");
         }
     }
 }

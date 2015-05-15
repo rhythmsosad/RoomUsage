@@ -17,7 +17,7 @@
         <AssociationConnector Association="DB_CHINModel.FK_Schedule_Course" />
         <AssociationConnector Association="DB_CHINModel.FK_ScheduleTime_Room" />
         <AssociationConnector Association="DB_CHINModel.FK_ScheduleTime_Schedule" />
-        <EntityTypeShape EntityType="DB_CHINModel.RegistrationTemp" Width="1.5" PointX="10.5" PointY="1.25" />
+        <EntityTypeShape EntityType="DB_CHINModel.RegistrationTemp" Width="1.5" PointX="7.75" PointY="6.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

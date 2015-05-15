@@ -20,6 +20,8 @@ namespace RoomUsageApp.Models
         {
             using (var entities = new DB_CHINEntities())
             {
+
+
                 // Hour Used
                 var roomByFac = from tRoom in entities.Room
                                 join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
@@ -36,8 +38,8 @@ namespace RoomUsageApp.Models
                            join tRoom in entities.Room on tTime.RoomId equals tRoom.Id
                            join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
                            join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
-                           where tTime.StartTime != null &&
-                               tTime.EndTime != null &&
+                           where tTime.StartTime != null && tTime.StartTime != "IA" && tTime.StartTime != "AR" &&
+                               tTime.EndTime != null && tTime.EndTime != "IA" && tTime.EndTime != "AR" &&
                                tTime.RoomId != null
                            select new ReportChartByTypeModelItem()
                            {
@@ -78,8 +80,8 @@ namespace RoomUsageApp.Models
                                join tRoom in entities.Room on tTime.RoomId equals tRoom.Id
                                join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
                                join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
-                               where tTime.StartTime != null &&
-                                   tTime.EndTime != null &&
+                               where tTime.StartTime != null && tTime.StartTime != "IA" && tTime.StartTime != "AR" &&
+                               tTime.EndTime != null && tTime.EndTime != "IA" && tTime.EndTime != "AR" &&
                                    tTime.RoomId != null
                                group tRoom by new { tBuilding.FacultyCode, tFaculty.Name } into tTable
                                select new
@@ -95,8 +97,8 @@ namespace RoomUsageApp.Models
                                    join tRoom in entities.Room on tTime.RoomId equals tRoom.Id
                                    join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
                                    join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
-                                   where tTime.StartTime != null &&
-                                       tTime.EndTime != null &&
+                                   where tTime.StartTime != null && tTime.StartTime != "IA" && tTime.StartTime != "AR" &&
+                                        tTime.EndTime != null && tTime.EndTime != "IA" && tTime.EndTime != "AR" &&
                                        tTime.RoomId != null
                                    group tSchedule by new { tBuilding.FacultyCode, tFaculty.Name } into tTable
                                    select new

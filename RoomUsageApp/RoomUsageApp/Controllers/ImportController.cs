@@ -113,6 +113,8 @@ namespace RoomUsageApp.Controllers
 
                                     entities.SaveChanges();
 
+                                    entities.IMPORT_DATA();
+
                                     transaction.Commit();
                                 }
                                 catch (Exception ex)
