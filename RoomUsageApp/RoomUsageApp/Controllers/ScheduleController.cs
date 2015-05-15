@@ -13,5 +13,14 @@ namespace RoomUsageApp.Controllers
         {
             return View();
         }
+
+        public ActionResult Table()
+        {
+            return Json(new { data = new List<object>() { new { first_name = "first111", last_name = "last111" }, new { first_name = "first222", last_name = "last222" } } });
+
+            //AdminUser queryModel = new AdminUser();
+            //List<AdminUserItem> response = queryModel.Query();
+            //return Json(response);
+        }
     }
 }
