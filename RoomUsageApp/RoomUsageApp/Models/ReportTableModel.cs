@@ -64,9 +64,13 @@ namespace RoomUsageApp.Models
                                  Section = tS.Section
                              };
 
-                List<ScheduleItem> resultList = result.ToList().Where(o =>
-                                (string.IsNullOrEmpty(StartTime) || int.Parse(o.StartTime.Replace(":", "")) > int.Parse(StartTime.Replace(":", ""))) &&
-                                (string.IsNullOrEmpty(EndTime) || int.Parse(o.EndTime.Replace(":", "")) > int.Parse(EndTime.Replace(":", "")))).ToList();
+                result.ToList();
+
+                //List<ScheduleItem> resultList = result.ToList().Where(o =>
+                //                (string.IsNullOrEmpty(StartTime) || int.Parse(o.StartTime.Replace(":", "")) > int.Parse(StartTime.Replace(":", ""))) &&
+                //                (string.IsNullOrEmpty(EndTime) || int.Parse(o.EndTime.Replace(":", "")) > int.Parse(EndTime.Replace(":", "")))).ToList();
+
+                List<ScheduleItem> resultList = result.ToList();
 
                 foreach (string d in days)
                 {
