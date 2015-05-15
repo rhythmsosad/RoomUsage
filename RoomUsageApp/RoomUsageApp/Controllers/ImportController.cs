@@ -71,13 +71,13 @@ namespace RoomUsageApp.Controllers
                         DataValidation validator = new DataValidation(result.Tables[0]);
                         bool validateResult = validator.IsValid();
 
-                        using (var entities = new DB_CHINEntities())
-                        {
-                            using (var transaction = entities.Database.BeginTransaction())
-                            {
-                                entities.
-                            }
-                        }
+                        //using (var entities = new DB_CHINEntities())
+                        //{
+                        //    using (var transaction = entities.Database.BeginTransaction())
+                        //    {
+                        //        entities.Schedule
+                        //    }
+                        //}
 
                         excelReader.Close();
 
