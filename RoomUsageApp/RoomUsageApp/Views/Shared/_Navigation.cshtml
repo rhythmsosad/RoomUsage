@@ -29,7 +29,12 @@
             <li class="@Html.IsSelected(controller: "Import")">
                 <a href="@Url.Action("Index", "Import")"><i class="fa fa-th-large"></i> <span class="nav-label">Import</span></a>
             </li>
-
+            <li class="@Html.IsSelected(controller: "Schedule")">
+                <a href="@Url.Action("Index", "Schedule")"><i class="fa fa-calendar"></i> <span class="nav-label">Schedule</span></a>
+            </li>
+            <li class="@Html.IsSelected(controller: "RoomEfficiency")">
+                <a href="@Url.Action("Index", "RoomEfficiency")"><i class="fa fa-bar-chart"></i> <span class="nav-label">Room Efficiency</span></a>
+            </li>
             <li class="@Html.IsSelected(controller: "Member")">
                 <a href="@Url.Action("Index", "Member")"><i class="fa fa-child"></i> <span class="nav-label">Member</span></a>
             </li>

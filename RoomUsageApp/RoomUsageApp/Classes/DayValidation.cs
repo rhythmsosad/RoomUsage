@@ -21,6 +21,8 @@ namespace RoomUsageApp.Classes
              && o["DAY1"].ToString() != ("TH")
              && o["DAY1"].ToString() != ("FR")
              && o["DAY1"].ToString() != ("SA")
+             && o["DAY1"].ToString() != ("AR")
+             && o["DAY1"].ToString() != ("IA")
              && o["DAY1"].ToString() != ("SU")).Count();
 
             int day2ValidateCount = data.AsEnumerable().Where(o => o["DAY2"].ToString() != ("")
@@ -30,6 +32,8 @@ namespace RoomUsageApp.Classes
             && o["DAY2"].ToString() != ("TH")
             && o["DAY2"].ToString() != ("FR")
             && o["DAY2"].ToString() != ("SA")
+            && o["DAY2"].ToString() != ("AR")
+            && o["DAY2"].ToString() != ("IA")
             && o["DAY2"].ToString() != ("SU")).Count();
 
             int day3ValidateCount = data.AsEnumerable().Where(o => o["DAY3"].ToString() != ("")
@@ -39,6 +43,8 @@ namespace RoomUsageApp.Classes
             && o["DAY3"].ToString() != ("TH")
             && o["DAY3"].ToString() != ("FR")
             && o["DAY3"].ToString() != ("SA")
+            && o["DAY3"].ToString() != ("AR")
+            && o["DAY3"].ToString() != ("IA")
             && o["DAY3"].ToString() != ("SU")).Count();
 
             int day4ValidateCount = data.AsEnumerable().Where(o => o["DAY4"].ToString() != ("")
@@ -48,6 +54,8 @@ namespace RoomUsageApp.Classes
             && o["DAY4"].ToString() != ("TH")
             && o["DAY4"].ToString() != ("FR")
             && o["DAY4"].ToString() != ("SA")
+            && o["DAY4"].ToString() != ("AR")
+            && o["DAY4"].ToString() != ("IA")
             && o["DAY4"].ToString() != ("SU")).Count();
 
             int day5ValidateCount = data.AsEnumerable().Where(o => o["DAY5"].ToString() != ("")
@@ -57,6 +65,8 @@ namespace RoomUsageApp.Classes
             && o["DAY5"].ToString() != ("TH")
             && o["DAY5"].ToString() != ("FR")
             && o["DAY5"].ToString() != ("SA")
+            && o["DAY5"].ToString() != ("AR")
+            && o["DAY5"].ToString() != ("IA")
             && o["DAY5"].ToString() != ("SU")).Count();
 
             int day6ValidateCount = data.AsEnumerable().Where(o => o["DAY6"].ToString() != ("")
@@ -66,6 +76,8 @@ namespace RoomUsageApp.Classes
             && o["DAY6"].ToString() != ("TH")
             && o["DAY6"].ToString() != ("FR")
             && o["DAY6"].ToString() != ("SA")
+            && o["DAY6"].ToString() != ("AR")
+            && o["DAY6"].ToString() != ("IA")
             && o["DAY6"].ToString() != ("SU")).Count();
 
             int day7ValidateCount = data.AsEnumerable().Where(o => o["DAY7"].ToString() != ("")
@@ -75,6 +87,8 @@ namespace RoomUsageApp.Classes
             && o["DAY7"].ToString() != ("TH")
             && o["DAY7"].ToString() != ("FR")
             && o["DAY7"].ToString() != ("SA")
+            && o["DAY7"].ToString() != ("AR")
+            && o["DAY7"].ToString() != ("IA")
             && o["DAY7"].ToString() != ("SU")).Count();
             ///////////// end validate DAY1-7
 
