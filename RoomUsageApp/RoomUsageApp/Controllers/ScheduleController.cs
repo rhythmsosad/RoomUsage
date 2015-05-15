@@ -25,5 +25,12 @@ namespace RoomUsageApp.Controllers
             queryModel.QueryReport();
             return View(queryModel);
         }
+
+        [HttpPost]
+        public ActionResult Query(ReportTableModel model)
+        {
+            model.QueryReport();
+            return Json(new { data = model.ReportData });
+        }
     }
 }
