@@ -710,6 +710,7 @@
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\memberController.cs" />
@@ -740,6 +741,7 @@
       <DependentUpon>RegisterModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\memberClass.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -789,6 +791,7 @@
     <Content Include="Views\Test2\Index.cshtml" />
     <Content Include="Views\Test\ViewTest.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
