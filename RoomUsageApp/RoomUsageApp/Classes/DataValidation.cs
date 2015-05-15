@@ -31,7 +31,8 @@ namespace RoomUsageApp.Classes
             List<ValidationBase> rules = new List<ValidationBase>()
             {
                 new ClassCodeValidation() { data = data },
-                new tonValidation() { data = data }
+                new tonValidation() { data = data },
+                new teeValidation() {data = data }
 
             };
 
