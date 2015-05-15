@@ -223,7 +223,7 @@
 
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("Table", "Schedule", new { area = "Admin" })",
+                url: "@Url.Action("Table", "Schedule", new { area = "" })",
                 data: {},
                 success: function (result) {
                     tBody(result);
@@ -240,17 +240,11 @@
 
         function tBody(result) {
             var table = $('.dataTables-result').DataTable({
-                language: {
+                @*language: {
                     url: '@Url.Content("~/assets/js_custom/Datatable/localization/Thai.json")'
-                },
+                },*@
                 data: result,
                 "columns": [
-                    {
-                        "data": "GUID",
-                        "searchable": false,
-                        "orderable": false,
-                        "width": "50px"
-                    },
                     { "data": "first_name" },
                     { "data": "last_name" },
                     //{ "data": "Email" },

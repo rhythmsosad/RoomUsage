@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using RoomUsageApp.Models;
 
 namespace RoomUsageApp.Controllers
 {
@@ -14,13 +15,15 @@ namespace RoomUsageApp.Controllers
             return View();
         }
 
+        [HttpPost]
         public ActionResult Table()
         {
-            return Json(new { data = new List<object>() { new { first_name = "first111", last_name = "last111" }, new { first_name = "first222", last_name = "last222" } } });
+            //return Json(new {  recordsTotal = 2, recordsFiltered = 2, data = new List<object>() { new { first_name = "first111", last_name = "last111" }, new { first_name = "first222", last_name = "last222" } } });
 
-            //AdminUser queryModel = new AdminUser();
-            //List<AdminUserItem> response = queryModel.Query();
-            //return Json(response);
+            ReportTableModel queryModel = new ReportTableModel();
+            //List<ReportTableModel> response = queryModel.QueryReport();
+            queryModel.QueryReport();
+            return View(queryModel);
         }
     }
 }
