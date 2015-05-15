@@ -208,6 +208,18 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
+    <Content Include="CustomContent\jquery-timepicker-master\.gitignore" />
+    <Content Include="CustomContent\jquery-timepicker-master\GruntFile.js" />
+    <Content Include="CustomContent\jquery-timepicker-master\index.html" />
+    <Content Include="CustomContent\jquery-timepicker-master\jquery.timepicker.css" />
+    <Content Include="CustomContent\jquery-timepicker-master\jquery.timepicker.js" />
+    <Content Include="CustomContent\jquery-timepicker-master\jquery.timepicker.min.js" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\bootstrap-datepicker.css" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\bootstrap-datepicker.js" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\glyphicons-halflings.png" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\screenshot.png" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\site.css" />
+    <Content Include="CustomContent\jquery-timepicker-master\lib\site.js" />
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -289,6 +301,10 @@
     <Content Include="Models\Entities\RegisterModel.edmx.diagram">
       <DependentUpon>RegisterModel.edmx</DependentUpon>
     </Content>
+    <Content Include="CustomContent\jquery-timepicker-master\bower.json" />
+    <Content Include="CustomContent\jquery-timepicker-master\jt.timepicker.jquery.json" />
+    <Content Include="CustomContent\jquery-timepicker-master\package.json" />
+    <Content Include="CustomContent\jquery-timepicker-master\README.md" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
