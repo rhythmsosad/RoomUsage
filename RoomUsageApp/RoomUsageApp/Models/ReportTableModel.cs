@@ -29,10 +29,10 @@ namespace RoomUsageApp.Models
                 List<string> days = new List<string>() { "MO", "TU", "WE", "TH", "FR", "SA", "SU" };
                 //List<string> days = new List<string>() { "MO" };
 
-                //if(Days != null && Days.Length > 0)
-                //{
-                //    days = Days.ToList();
-                //}
+                if (Days != null && Days.Length > 0)
+                {
+                    days = Days.ToList();
+                }
 
                 DataTable dt = new DataTable();
 
@@ -65,8 +65,8 @@ namespace RoomUsageApp.Models
                              };
 
                 List<ScheduleItem> resultList = result.ToList().Where(o =>
-                                (string.IsNullOrEmpty(StartTime) || int.Parse(o.StartTime) > int.Parse(StartTime)) &&
-                                (string.IsNullOrEmpty(EndTime) || int.Parse(o.EndTime) > int.Parse(EndTime))).ToList();
+                                (string.IsNullOrEmpty(StartTime) || int.Parse(o.StartTime.Replace(":", "")) > int.Parse(StartTime.Replace(":", ""))) &&
+                                (string.IsNullOrEmpty(EndTime) || int.Parse(o.EndTime.Replace(":", "")) > int.Parse(EndTime.Replace(":", "")))).ToList();
 
                 foreach (string d in days)
                 {
