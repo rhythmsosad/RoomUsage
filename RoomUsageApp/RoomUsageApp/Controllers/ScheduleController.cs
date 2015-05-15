@@ -30,7 +30,7 @@ namespace RoomUsageApp.Controllers
         public ActionResult Query(ReportTableModel model)
         {
             model.QueryReport();
-            return Json(new { data = model.ReportData });
+            return Json(new { data = model.ReportData, header = model.ReportHeader });
         }
     }
 }
