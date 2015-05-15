@@ -707,9 +707,11 @@
     <Compile Include="Classes\CheckFormatTime.cs" />
     <Compile Include="Classes\ClassCodeValidation.cs" />
     <Compile Include="Classes\DataValidation.cs" />
+    <Compile Include="Classes\teeValidaton.cs" />
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\memberController.cs" />
@@ -740,6 +742,7 @@
       <DependentUpon>RegisterModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\memberClass.cs" />
+    <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -789,6 +792,7 @@
     <Content Include="Views\Test2\Index.cshtml" />
     <Content Include="Views\Test\ViewTest.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
+    <Content Include="Views\Schedule\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -813,7 +817,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50036</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
