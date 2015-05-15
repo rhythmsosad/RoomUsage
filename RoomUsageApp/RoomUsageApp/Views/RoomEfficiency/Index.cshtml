@@ -1,4 +1,4 @@
-﻿@*@model RoomUsageApp.Models.ReportTableModel*@
+﻿@model RoomUsageApp.Models.ReportChartByTypeModel
 
 @{
     // ViewBag.Title = "Index";
@@ -69,6 +69,33 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="wrapper wrapper-content">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>Faculty Usage Effectiveness</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div>
+                                                    <canvas id="barChart2" height="140"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -78,127 +105,113 @@
 {
     @Scripts.Render("~/plugins/chartjs")
     <script type="text/javascript">
-        $(function () {
-            initFaculty();
-            initBuilding();
-            //initRoom();
-            initChart();
+    $(function () {
+        initFaculty();
+        initBuilding();
+        //initRoom();
+        initChart();
+        initChart2();
+    });
+    function initFaculty() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("FacultyLut", "Faculty", new { area = "" })",
+            data: {
+
+            },
+            success: function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $("#FC").empty();
+                $('<option>').val("").text("").appendTo('#FC');
+                $.each(data, function (index, item) {
+                    var opt = $('<option>').val(item.BuildingNo).text(item.Name);
+                    if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
+                        opt.attr("selected", "selected");
+                    }
+                    opt.appendTo('#FC');
+                });
+                $("#FC").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
+                $("#FC").chosen().change(function () {
+                    //initBranch($(this).val());
+                    //initDept($(this).val());
+                    //initRoom($(this).val());
+                });
+            },
+            dataType: "json"
         });
-        function initFaculty() {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("FacultyLut", "Faculty", new { area = "" })",
+    }
+    function initBuilding() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
+            data: {
+
+            },
+            success: function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $("#BU").empty();
+                $('<option>').val("").text("").appendTo('#BU');
+                $.each(data, function (index, item) {
+                    var opt = $('<option>').val(item.BuildingNo).text(item.Name);
+                    if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
+                        opt.attr("selected", "selected");
+                    }
+                    opt.appendTo('#BU');
+                });
+                $("#BU").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
+                $("#BU").chosen().change(function () {
+                    //initBranch($(this).val());
+                    //initDept($(this).val());
+                    initRoom($(this).val());
+                });
+            },
+            dataType: "json"
+        });
+    }
+    function initRoom(buildingNo) {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("RoomLut", "Room", new { area = "" })",
+            data: {
+                buildingNo: buildingNo
+            },
+            success: function (data, textStatus, jqXHR) {
+                //console.log(data);
+                $("#RO").empty();
+                $('<option>').val("").text("").appendTo('#RO');
+                $.each(data, function (index, item) {
+                    var opt = $('<option>').val(item.BuildingNo).text(item.Name);
+                    if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
+                        opt.attr("selected", "selected");
+                    }
+                    opt.appendTo('#RO');
+                });
+                $("#RO").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
+                $("#RO").chosen().change(function () {
+                    //initBranch($(this).val());
+                    //initDept($(this).val());
+                    //  initRoom($(this).val());
+                });
+            },
+            dataType: "json"
+        });
+    }
+    function initChart() {
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
                 data: {
 
                 },
                 success: function (data, textStatus, jqXHR) {
-                    //console.log(data);
-                    $("#FC").empty();
-                    $('<option>').val("").text("").appendTo('#FC');
-                    $.each(data, function (index, item) {
-                        var opt = $('<option>').val(item.BuildingNo).text(item.Name);
-                        if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
-                            opt.attr("selected", "selected");
-                        }
-                        opt.appendTo('#FC');
-                    });
-                    $("#FC").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
-                    $("#FC").chosen().change(function () {
-                        //initBranch($(this).val());
-                        //initDept($(this).val());
-                        //initRoom($(this).val());
-                    });
-                },
-                dataType: "json"
-            });
-        }
-        function initBuilding() {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
-                data: {
-
-                },
-                success: function (data, textStatus, jqXHR) {
-                    //console.log(data);
-                    $("#BU").empty();
-                    $('<option>').val("").text("").appendTo('#BU');
-                    $.each(data, function (index, item) {
-                        var opt = $('<option>').val(item.BuildingNo).text(item.Name);
-                        if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
-                            opt.attr("selected", "selected");
-                        }
-                        opt.appendTo('#BU');
-                    });
-                    $("#BU").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
-                    $("#BU").chosen().change(function () {
-                        //initBranch($(this).val());
-                        //initDept($(this).val());
-                        initRoom($(this).val());
-                    });
-                },
-                dataType: "json"
-            });
-        }
-        function initRoom(buildingNo) {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("RoomLut", "Room", new { area = "" })",
-                data: {
-                    buildingNo: buildingNo
-                },
-                success: function (data, textStatus, jqXHR) {
-                    //console.log(data);
-                    $("#RO").empty();
-                    $('<option>').val("").text("").appendTo('#RO');
-                    $.each(data, function (index, item) {
-                        var opt = $('<option>').val(item.BuildingNo).text(item.Name);
-                        if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
-                            opt.attr("selected", "selected");
-                        }
-                        opt.appendTo('#RO');
-                    });
-                    $("#RO").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
-                    $("#RO").chosen().change(function () {
-                        //initBranch($(this).val());
-                        //initDept($(this).val());
-                        //  initRoom($(this).val());
-                    });
-                },
-                dataType: "json"
-            });
-        }
-        function initChart() {
-            $.ajax({
-                type: "POST",
-                url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
-                data: {
-
-                },
-                success: function (data, textStatus, jqXHR) {
-                    ////console.log(data);
-                    //$("#BU").empty();
-                    //$('<option>').val("").text("").appendTo('#BU');
-                    //$.each(data, function (index, item) {
-                    //    var opt = $('<option>').val(item.BuildingNo).text(item.Name);
-                    //    if (typeof (buVal) != "undefined" && buVal == item.BuildingNo) {
-                    //        opt.attr("selected", "selected");
-                    //    }
-                    //    opt.appendTo('#BU');
-                    //});
-                    //$("#BU").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
-                    //$("#BU").chosen().change(function () {
-                    //    //initBranch($(this).val());
-                    //    //initDept($(this).val());
-                    //    initRoom($(this).val());
-                    //});
+                    bindChart();
                 },
                 dataType: "json"
             });
         }
         function bindChart() {
             var barData = {
-                labels: ["building1", "building2", "building3", "building4", "building5", "building6", "building7"],
+                labels:@Html.Raw(Model.Labels),
                 datasets: [
                     {
                         label: "Used Time",
@@ -237,5 +250,62 @@
 
 
         }
+
+
+        /////
+        function initChart2() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
+            data: {
+
+            },
+            success: function (data, textStatus, jqXHR) {
+                bindChart2();
+            },
+            dataType: "json"
+        });
+    }
+    function bindChart2() {
+        var barData = {
+            labels: ["Faculty1", "Faculty2", "Faculty3", "Faculty4", "Faculty5", "Faculty6", "Faculty7"],
+            datasets: [
+                //{
+                //    label: "Used Time",
+                //    fillColor: "rgba(220,220,220,0.5)",
+                //    strokeColor: "rgba(220,220,220,0.8)",
+                //    highlightFill: "rgba(220,220,220,0.75)",
+                //    highlightStroke: "rgba(220,220,220,1)",
+                //    data: [65, 59, 80, 81, 56, 55, 40]
+                //},
+                {
+                    label: "Used Seat",
+                    fillColor: "rgba(26,179,148,0.5)",
+                    strokeColor: "rgba(26,179,148,0.8)",
+                    highlightFill: "rgba(26,179,148,0.75)",
+                    highlightStroke: "rgba(26,179,148,1)",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+
+        var barOptions = {
+            scaleShowLabels: true,
+            scaleBeginAtZero: true,
+            scaleShowGridLines: true,
+            scaleGridLineColor: "rgba(0,0,0,.05)",
+            scaleGridLineWidth: 1,
+            barShowStroke: true,
+            barStrokeWidth: 2,
+            barValueSpacing: 5,
+            barDatasetSpacing: 1,
+            responsive: true,
+            multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
+        }
+        var ctx = document.getElementById("barChart2").getContext("2d");
+        var myNewChart = new Chart(ctx).Bar(barData, barOptions);
+
+
+    }
     </script>
 }
