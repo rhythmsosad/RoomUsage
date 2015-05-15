@@ -44,7 +44,7 @@ namespace RoomUsageApp.Models
 
                 dt.Columns.Add("Day");
                 dt.Columns.Add("Time");
-                dt.Columns.AddRange(allRoom.Select(r => new DataColumn() { ColumnName = r.RoomNo }).Distinct().ToArray());
+                dt.Columns.AddRange(allRoom.Select(r => new DataColumn() { ColumnName = !string.IsNullOrEmpty(r.RoomNo) ? r.RoomNo : "ไม่ระบุห้อง" }).Distinct().ToArray());
 
 
                 var result = from tST in entities.ScheduleTime
@@ -81,7 +81,7 @@ namespace RoomUsageApp.Models
                             dt.Rows.Add(d, string.Format("{0}-{1}", p.From, p.To));
                             foreach (ScheduleItem si in resultList.Where(o => o.Day == d && (p.From >= int.Parse(o.StartTime) && p.From <= int.Parse(o.EndTime)) && (p.To >= int.Parse(o.StartTime) && p.To <= int.Parse(o.EndTime))))
                             {
-                                dt.Rows[dt.Rows.Count - 1][si.RoomNo] = si.CourseCode.Trim() + " Sec. " + si.Section;
+                                dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? si.RoomNo : "ไม่ระบุห้อง"] = si.CourseCode.Trim() + " Sec. " + si.Section;
                             }
                         }
                     }
