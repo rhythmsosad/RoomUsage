@@ -30,23 +30,22 @@ namespace RoomUsageApp.Classes
             // Add Validaton แต่ละตัวลงไปใน List นี้
             List<ValidationBase> rules = new List<ValidationBase>()
             {
-                new ClassCodeValidation() { data = data },
-                new tonValidation() { data = data },
-                new teeValidation() {data = data }
-
+                new DayValidation() { data = data },
+                new NumberValidaton() { data = data },
+                new CheckFormatTime() { data = data }
             };
 
-         
+
             foreach (ValidationBase rule in rules)
             {
-                if(!rule.IsValid())
+                if (!rule.IsValid())
                 {
                     result = false;
                     ErrorMessage.Add(rule.Message);
                 }
             }
 
-         
+
 
             return result;
         }

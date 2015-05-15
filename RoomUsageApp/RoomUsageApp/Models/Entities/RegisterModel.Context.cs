@@ -31,5 +31,6 @@ namespace RoomUsageApp.Models.Entities
         public virtual DbSet<Room> Room { get; set; }
         public virtual DbSet<Schedule> Schedule { get; set; }
         public virtual DbSet<ScheduleTime> ScheduleTime { get; set; }
+        public virtual DbSet<RegistrationTemp> RegistrationTemp { get; set; }
     }
 }

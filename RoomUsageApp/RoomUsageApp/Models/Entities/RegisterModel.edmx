@@ -34,6 +34,38 @@
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="AbbrName" Type="nvarchar(max)" />
         </EntityType>
+        <EntityType Name="RegistrationTemp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="YEAR" Type="float" />
+          <Property Name="SEMESTER" Type="float" />
+          <Property Name="FACCODE" Type="float" />
+          <Property Name="FACNAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="FACABBR" Type="nvarchar" MaxLength="255" />
+          <Property Name="COURSECODE" Type="float" />
+          <Property Name="NAMEENGABBR" Type="nvarchar" MaxLength="255" />
+          <Property Name="TEACHTYPE" Type="nvarchar" MaxLength="255" />
+          <Property Name="SECTION" Type="float" />
+          <Property Name="DAY1" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY2" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY3" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY4" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY5" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY6" Type="nvarchar" MaxLength="255" />
+          <Property Name="DAY7" Type="nvarchar" MaxLength="255" />
+          <Property Name="STARTTIME" Type="float" />
+          <Property Name="ENDTIME" Type="float" />
+          <Property Name="REALREG" Type="float" />
+          <Property Name="TOTALREG" Type="float" />
+          <Property Name="BUILDINGNAME" Type="nvarchar" MaxLength="255" />
+          <Property Name="BUILDINGNO" Type="float" />
+          <Property Name="ROOMNO" Type="float" />
+          <Property Name="ROOMTYPE" Type="nvarchar" MaxLength="255" />
+          <Property Name="NUMCLASSSEAT" Type="float" />
+          <Property Name="STUDYPROGRAM" Type="nvarchar" MaxLength="255" />
+        </EntityType>
         <EntityType Name="Room">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,6 +177,7 @@
           <EntitySet Name="Building" EntityType="Self.Building" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Course" EntityType="Self.Course" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="RegistrationTemp" EntityType="Self.RegistrationTemp" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Room" EntityType="Self.Room" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="chula" store:Type="Tables" />
           <EntitySet Name="ScheduleTime" EntityType="Self.ScheduleTime" Schema="chula" store:Type="Tables" />
@@ -208,6 +241,7 @@
             <End Role="Schedule" EntitySet="Schedule" />
             <End Role="ScheduleTime" EntitySet="ScheduleTime" />
           </AssociationSet>
+          <EntitySet Name="RegistrationTemp" EntityType="DB_CHINModel.RegistrationTemp" />
         </EntityContainer>
         <EntityType Name="Building">
           <Key>
@@ -357,6 +391,38 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="RegistrationTemp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="YEAR" Type="Double" />
+          <Property Name="SEMESTER" Type="Double" />
+          <Property Name="FACCODE" Type="Double" />
+          <Property Name="FACNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FACABBR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="COURSECODE" Type="Double" />
+          <Property Name="NAMEENGABBR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="TEACHTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="SECTION" Type="Double" />
+          <Property Name="DAY1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY3" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY4" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY5" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY6" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="DAY7" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="STARTTIME" Type="Double" />
+          <Property Name="ENDTIME" Type="Double" />
+          <Property Name="REALREG" Type="Double" />
+          <Property Name="TOTALREG" Type="Double" />
+          <Property Name="BUILDINGNAME" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="BUILDINGNO" Type="Double" />
+          <Property Name="ROOMNO" Type="Double" />
+          <Property Name="ROOMTYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NUMCLASSSEAT" Type="Double" />
+          <Property Name="STUDYPROGRAM" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -430,6 +496,39 @@
                 <ScalarProperty Name="StartTime" ColumnName="StartTime" />
                 <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RegistrationTemp">
+            <EntityTypeMapping TypeName="DB_CHINModel.RegistrationTemp">
+              <MappingFragment StoreEntitySet="RegistrationTemp">
+                <ScalarProperty Name="STUDYPROGRAM" ColumnName="STUDYPROGRAM" />
+                <ScalarProperty Name="NUMCLASSSEAT" ColumnName="NUMCLASSSEAT" />
+                <ScalarProperty Name="ROOMTYPE" ColumnName="ROOMTYPE" />
+                <ScalarProperty Name="ROOMNO" ColumnName="ROOMNO" />
+                <ScalarProperty Name="BUILDINGNO" ColumnName="BUILDINGNO" />
+                <ScalarProperty Name="BUILDINGNAME" ColumnName="BUILDINGNAME" />
+                <ScalarProperty Name="TOTALREG" ColumnName="TOTALREG" />
+                <ScalarProperty Name="REALREG" ColumnName="REALREG" />
+                <ScalarProperty Name="ENDTIME" ColumnName="ENDTIME" />
+                <ScalarProperty Name="STARTTIME" ColumnName="STARTTIME" />
+                <ScalarProperty Name="DAY7" ColumnName="DAY7" />
+                <ScalarProperty Name="DAY6" ColumnName="DAY6" />
+                <ScalarProperty Name="DAY5" ColumnName="DAY5" />
+                <ScalarProperty Name="DAY4" ColumnName="DAY4" />
+                <ScalarProperty Name="DAY3" ColumnName="DAY3" />
+                <ScalarProperty Name="DAY2" ColumnName="DAY2" />
+                <ScalarProperty Name="DAY1" ColumnName="DAY1" />
+                <ScalarProperty Name="SECTION" ColumnName="SECTION" />
+                <ScalarProperty Name="TEACHTYPE" ColumnName="TEACHTYPE" />
+                <ScalarProperty Name="NAMEENGABBR" ColumnName="NAMEENGABBR" />
+                <ScalarProperty Name="COURSECODE" ColumnName="COURSECODE" />
+                <ScalarProperty Name="FACABBR" ColumnName="FACABBR" />
+                <ScalarProperty Name="FACNAME" ColumnName="FACNAME" />
+                <ScalarProperty Name="FACCODE" ColumnName="FACCODE" />
+                <ScalarProperty Name="SEMESTER" ColumnName="SEMESTER" />
+                <ScalarProperty Name="YEAR" ColumnName="YEAR" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

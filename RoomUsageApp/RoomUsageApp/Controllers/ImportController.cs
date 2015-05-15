@@ -3,6 +3,7 @@ using RoomUsageApp.Classes;
 using RoomUsageApp.Models.Entities;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.IO;
 using System.Linq;
@@ -71,13 +72,57 @@ namespace RoomUsageApp.Controllers
                         DataValidation validator = new DataValidation(result.Tables[0]);
                         bool validateResult = validator.IsValid();
 
-                        //using (var entities = new DB_CHINEntities())
-                        //{
-                        //    using (var transaction = entities.Database.BeginTransaction())
-                        //    {
-                        //        entities.Schedule
-                        //    }
-                        //}
+                        using (var entities = new DB_CHINEntities())
+                        {
+                            using (var transaction = entities.Database.BeginTransaction())
+                            {
+                                try
+                                {
+                                    TypeConverter convDouble = TypeDescriptor.GetConverter(typeof(double?));
+
+                                    entities.RegistrationTemp.AddRange(result.Tables[0].AsEnumerable().Select(o => new RegistrationTemp() {
+                                        BUILDINGNAME = o["BUILDINGNAME"].ToString(),
+                                        BUILDINGNO = (double?)convDouble.ConvertFrom(o["BUILDINGNO"].ToString()),
+                                        COURSECODE = (double?)convDouble.ConvertFrom(o["COURSECODE"].ToString()),
+                                        DAY1 = o["DAY1"].ToString(),
+                                        DAY2 = o["DAY2"].ToString(),
+                                        DAY3 = o["DAY3"].ToString(),
+                                        DAY4 = o["DAY4"].ToString(),
+                                        DAY5 = o["DAY5"].ToString(),
+                                        DAY6 = o["DAY6"].ToString(),
+                                        DAY7 = o["DAY7"].ToString(),
+                                        ENDTIME = (double?)convDouble.ConvertFrom(o["ENDTIME"].ToString()),
+                                        FACABBR = o["FACABBR"].ToString(),
+                                        FACCODE = (double?)convDouble.ConvertFrom(o["FACCODE"].ToString()),
+                                        FACNAME = o["FACNAME"].ToString(),
+                                        NAMEENGABBR = o["NAMEENGABBR"].ToString(),
+                                        NUMCLASSSEAT = (double?)convDouble.ConvertFrom(o["NUMCLASSSEAT"].ToString()),
+                                        REALREG = (double?)convDouble.ConvertFrom(o["REALREG"].ToString()),
+                                        ROOMNO = (double?)convDouble.ConvertFrom(o["ROOMNO"].ToString()),
+                                        ROOMTYPE = o["ROOMTYPE"].ToString(),
+                                        SECTION = (double?)convDouble.ConvertFrom(o["SECTION"].ToString()),
+                                        SEMESTER = (double?)convDouble.ConvertFrom(o["SEMESTER"].ToString()),
+                                        STARTTIME = (double?)convDouble.ConvertFrom(o["STARTTIME"].ToString()),
+                                        STUDYPROGRAM = o["STUDYPROGRAM"].ToString(),
+                                        TEACHTYPE = o["TEACHTYPE"].ToString(),
+                                        TOTALREG = (double?)convDouble.ConvertFrom(o["TOTALREG"].ToString()),
+                                        YEAR = (double?)convDouble.ConvertFrom(o["YEAR"].ToString())
+                                    }));
+
+                                    entities.SaveChanges();
+
+                                    transaction.Commit();
+                                }
+                                catch (Exception ex)
+                                {
+                                    transaction.Rollback();
+                                }
+                                finally
+                                {
+
+                                }
+                            }
+                        }
 
                         excelReader.Close();
 

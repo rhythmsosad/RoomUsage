@@ -741,8 +741,8 @@
     <Compile Include="Classes\ClassCodeValidation.cs" />
     <Compile Include="Classes\DataValidation.cs" />
     <Compile Include="Classes\ReportTimePeriod.cs" />
-    <Compile Include="Classes\teeValidaton.cs" />
-    <Compile Include="Classes\tonValidation.cs" />
+    <Compile Include="Classes\NumberValidaton.cs" />
+    <Compile Include="Classes\DayValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
@@ -782,6 +782,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RegisterModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\RegistrationTemp.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Room.cs">
       <DependentUpon>RegisterModel.tt</DependentUpon>

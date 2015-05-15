@@ -7,22 +7,22 @@ using System.Text.RegularExpressions;
 
 namespace RoomUsageApp.Classes
 {
-    public class teeValidation : ValidationBase
+    public class NumberValidaton : ValidationBase
     {
         Regex NumberPattern = new Regex("^[0-9]+$");
         int YearInvalid;
         bool Valid;
         public override bool IsValid()
         {
-            
+
             //Check CourseCode
-            var queryCourseCode = data.AsEnumerable().Where(r => (r["COURSECODE"].ToString() !=""));
+            var queryCourseCode = data.AsEnumerable().Where(r => (r["COURSECODE"].ToString() != ""));
             if (queryCourseCode.Count() > 0)
             {
                 DataTable Validate = queryCourseCode.CopyToDataTable();
                 queryCourseCode = Validate.AsEnumerable().Where(
                     r => !(NumberPattern.IsMatch(r["COURSECODE"].ToString())));
-               
+
             }
             //Check Realreg
             var queryRealreg = data.AsEnumerable().Where(r => (r["REALREG"].ToString() != ""));
@@ -56,21 +56,21 @@ namespace RoomUsageApp.Classes
                 queryFaccode = Validate.AsEnumerable().Where(
                     r => !(NumberPattern.IsMatch(r["FACCODE"].ToString())));
             }
-              //Check Year 
-            
-             var queryYear = data.AsEnumerable().Where(r => (r["YEAR"].ToString() != ""));
-             
-              if (queryYear.Count() > 0)
-              {
-                  DataTable Validate = queryYear.CopyToDataTable();
-                  queryYear = Validate.AsEnumerable().Where(
-                      r => !(NumberPattern.IsMatch(r["YEAR"].ToString())));
-              }
+            //Check Year 
+
+            var queryYear = data.AsEnumerable().Where(r => (r["YEAR"].ToString() != ""));
+
+            if (queryYear.Count() > 0)
+            {
+                DataTable Validate = queryYear.CopyToDataTable();
+                queryYear = Validate.AsEnumerable().Where(
+                    r => !(NumberPattern.IsMatch(r["YEAR"].ToString())));
+            }
             if (queryYear.Count() == 0)
             {
                 //Check Valid Year
                 YearInvalid = data.AsEnumerable().Where(
-                    o => (o["YEAR"].ToString().Length > 4 )).Count();
+                    o => (o["YEAR"].ToString().Length > 4)).Count();
 
             }
 
@@ -113,10 +113,10 @@ namespace RoomUsageApp.Classes
             {
                 return true;
             }
-                else
+            else
             {
                 return false;
             }
-            }
         }
     }
+}

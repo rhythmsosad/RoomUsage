@@ -6,7 +6,7 @@ using System.Data; // require อันนี้เสมอ เพราะจ�
 
 namespace RoomUsageApp.Classes
 {
-    public class tonValidation : ValidationBase
+    public class DayValidation : ValidationBase
     {
         public override bool IsValid()
         {
