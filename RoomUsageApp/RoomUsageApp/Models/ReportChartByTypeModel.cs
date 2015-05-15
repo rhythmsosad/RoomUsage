@@ -14,6 +14,8 @@ namespace RoomUsageApp.Models
         public string DataHours { get; set; }
         public string DataSeat { get; set; }
 
+        public string DataEff { get; set; }
+
         public void QueryReportAllFaculty()
         {
             using (var entities = new DB_CHINEntities())
@@ -128,12 +130,14 @@ namespace RoomUsageApp.Models
                                      FacultyCode = tFac.Code,
                                      FaculyName = tFac.Name,
                                      HoursPercent = tHour.HoursPercent,
-                                     SeatPercent = tSeat.SeatPercent
+                                     SeatPercent = tSeat.SeatPercent,
+                                     EffPercent = (tHour.HoursRatio * tSeat.SeatRatio) * 100
                                  };
 
                 Labels = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => string.Format("\"{0}\"", o.FaculyName).ToArray()));
                 DataHours = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.HoursPercent).ToArray()));
                 DataSeat = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.SeatPercent).ToArray()));
+                DataEff = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.EffPercent).ToArray()));
             }
         }
 
@@ -187,6 +191,7 @@ namespace RoomUsageApp.Models
 
         public double HoursPercent { get; set; }
         public double SeatPercent { get; set; }
+        public double EffPercent { get; set; }
     }
 
     public class ReportChartByTypeModelItem
