@@ -1,5 +1,6 @@
 ﻿using Excel;
 using RoomUsageApp.Classes;
+using RoomUsageApp.Models.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -70,10 +71,18 @@ namespace RoomUsageApp.Controllers
                         DataValidation validator = new DataValidation(result.Tables[0]);
                         bool validateResult = validator.IsValid();
 
+                        using (var entities = new DB_CHINEntities())
+                        {
+                            using (var transaction = entities.Database.BeginTransaction())
+                            {
+                                entities.
+                            }
+                        }
+
                         excelReader.Close();
 
                         //string html = sb.ToString();
-                        if(validateResult)
+                        if (validateResult)
                         {
                             return Json(new { Message = "Import Success" });
                         }
