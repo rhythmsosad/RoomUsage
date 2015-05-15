@@ -208,6 +208,7 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
+    <Content Include="ScriptsCustom\bootbox.min.js" />
     <Content Include="ScriptsCustom\chosen\chosen-sprite%402x.png" />
     <Content Include="ScriptsCustom\chosen\chosen-sprite.png" />
     <Content Include="ScriptsCustom\chosen\chosen.css" />

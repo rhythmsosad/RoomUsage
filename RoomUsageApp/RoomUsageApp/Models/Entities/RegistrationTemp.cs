@@ -31,8 +31,8 @@ namespace RoomUsageApp.Models.Entities
         public string DAY5 { get; set; }
         public string DAY6 { get; set; }
         public string DAY7 { get; set; }
-        public Nullable<double> STARTTIME { get; set; }
-        public Nullable<double> ENDTIME { get; set; }
+        public string STARTTIME { get; set; }
+        public string ENDTIME { get; set; }
         public Nullable<double> REALREG { get; set; }
         public Nullable<double> TOTALREG { get; set; }
         public string BUILDINGNAME { get; set; }
