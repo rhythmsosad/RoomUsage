@@ -791,9 +791,12 @@
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\memberClass.cs" />
+    <Compile Include="Models\ReportChartByTypeModel.cs" />
+    <Compile Include="Models\ReportModelBase.cs" />
     <Compile Include="Models\ReportTableModel.cs" />
     <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\ScheduleItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -8,14 +8,9 @@ using System.Web;
 
 namespace RoomUsageApp.Models
 {
-    public class ReportTableModel
+    public class ReportTableModel : ReportModelBase
     {
-        public string BuildingNo { get; set; }
-        public string RoomNo { get; set; }
-        public string[] Days { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-
+        
         public List<string> ReportHeader { get; set; }
         public List<List<object>> ReportData { get; set; }
 
@@ -99,23 +94,5 @@ namespace RoomUsageApp.Models
                 //return dt;
             }
         }
-
-        private TimeSpan GetTimeSpan(string str)
-        {
-            int minute = int.Parse(str.Substring(str.Length - 2, 2));
-            int hour = int.Parse(str.Substring(0, str.Length - 2));
-            TimeSpan ts = new TimeSpan(hour, minute, 0);
-            return ts;
-        }
-    }
-
-    public class ScheduleItem
-    {
-        public string Day { get; set; }
-        public string StartTime { get; set; }
-        public string EndTime { get; set; }
-        public string RoomNo{ get; set; }
-        public string CourseCode { get; set; }
-        public short? Section { get; set; }
     }
 }
