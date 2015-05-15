@@ -712,6 +712,7 @@
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -756,6 +757,7 @@
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\memberClass.cs" />
+    <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -817,6 +819,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Building\" />
+    <Folder Include="Views\Room\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
