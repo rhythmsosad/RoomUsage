@@ -747,6 +747,7 @@
     <Compile Include="Classes\ValidationBase.cs" />
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\FacultyController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\RoomEfficiencyController.cs" />
@@ -856,6 +857,7 @@
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
     <Content Include="Views\RoomEfficiency\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
