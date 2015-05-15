@@ -54,7 +54,7 @@
                                     <input type="checkbox" id="SA" name="SA" value="SA" label="SA" checked /><label style="padding-right:10px; padding-left:3px;">SA</label>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" style="display:none;">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">Time</label>
                                     <div class="col-sm-5">
@@ -154,7 +154,7 @@
     <script type="text/javascript">
         $(function () {
             initSearch();
-            initTable();
+          //  initTable();
         });
 
         $('#button').on('click', function () {
@@ -228,8 +228,8 @@
         function initTable() {
             var chck = $("input:checkbox:checked").map(function () {
                 return $(this).val();
-            }).get().join(); 
-
+            }).get(); 
+            console.log("chck", chck);
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("Query", "Schedule", new { area = "" })",
@@ -256,6 +256,7 @@
             //tBody();
         }
         function tHeader(header, data) {
+            $('#headerGen').empty();
             for (var i = 0 ; i < header.length; i++) {
                 //console.log(i,header[i] )
                 $('#headerGen').append('<th>' + header[i] + '</th>')
