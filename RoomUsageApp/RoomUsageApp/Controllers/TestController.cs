@@ -15,7 +15,7 @@ namespace RoomUsageApp.Controllers
         {
             ReportTableModel model = new ReportTableModel();
             model.BuildingNo = "320005";
-            DataTable dt = model.QueryReport();
+            model.QueryReport();
             return View();
         }
     }
