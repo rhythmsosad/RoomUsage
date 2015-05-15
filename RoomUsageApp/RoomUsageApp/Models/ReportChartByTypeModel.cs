@@ -134,7 +134,7 @@ namespace RoomUsageApp.Models
                                      EffPercent = (tHour.HoursRatio * tSeat.SeatRatio) * 100
                                  };
 
-                Labels = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => string.Format("\"{0}\"", o.FaculyName).ToArray()));
+                Labels = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => string.Format("\"{0}\"", o.FaculyName).ToArray())));
                 DataHours = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.HoursPercent).ToArray()));
                 DataSeat = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.SeatPercent).ToArray()));
                 DataEff = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.EffPercent).ToArray()));
