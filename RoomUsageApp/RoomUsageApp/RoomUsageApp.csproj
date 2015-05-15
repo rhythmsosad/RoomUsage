@@ -710,6 +710,7 @@
     <Compile Include="Classes\teeValidaton.cs" />
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
@@ -719,8 +720,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\BuildingModel.cs" />
     <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\Entities\Building.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Course.cs">
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Faculty.cs">
@@ -740,6 +745,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>RegisterModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Room.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Schedule.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\ScheduleTime.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\memberClass.cs" />
     <Compile Include="Models\Schedule.cs" />
@@ -802,6 +816,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Building\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
