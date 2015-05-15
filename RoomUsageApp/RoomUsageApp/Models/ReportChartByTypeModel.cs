@@ -93,6 +93,7 @@ namespace RoomUsageApp.Models
 
         public double HoursUsed { get; set; }
         public double HoursAvailable { get; set; }
+        public double HoursPercent { get; set; }
     }
 
     public class ReportChartByTypeModelItem

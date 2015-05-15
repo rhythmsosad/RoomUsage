@@ -15,7 +15,7 @@ namespace RoomUsageApp.Controllers
         {
             ReportChartByTypeModel model = new ReportChartByTypeModel();
             model.BuildingNo = "320005";
-            model.QueryReport();
+            model.QueryReportAllFaculty();
             return View();
         }
     }
