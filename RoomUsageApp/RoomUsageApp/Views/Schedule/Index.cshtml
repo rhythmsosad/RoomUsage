@@ -45,13 +45,13 @@
                             <div class="row">
                                 <div class="form-group">
                                     <label class="col-sm-1 control-label">Day</label>
-                                    <label value="SU">@Html.CheckBox("Active") SU </label>
-                                    <label value="MO">@Html.CheckBox("Active") MO </label>
-                                    <label value="TU">@Html.CheckBox("Active") TU </label>
-                                    <label value="WE">@Html.CheckBox("Active") WE </label>
-                                    <label value="TH">@Html.CheckBox("Active") TH </label>
-                                    <label value="FR">@Html.CheckBox("Active") FR </label>
-                                    <label value="SA">@Html.CheckBox("Active") SA </label>
+                                    <input type="checkbox" id="SU" name="SU" value="SU" label="SU" checked /><label style="padding-right:10px; padding-left:3px;">SU</label>
+                                    <input type="checkbox" id="MO" name="MO" value="MO" label="MO" checked /><label style="padding-right:10px; padding-left:3px;">MO</label>
+                                    <input type="checkbox" id="TU" name="TU" value="TU" label="TU" checked /><label style="padding-right:10px; padding-left:3px;">TU</label>
+                                    <input type="checkbox" id="WE" name="WE" value="WE" label="WE" checked /><label style="padding-right:10px; padding-left:3px;">WE</label>
+                                    <input type="checkbox" id="TH" name="TH" value="TH" label="TH" checked /><label style="padding-right:10px; padding-left:3px;">TH</label>
+                                    <input type="checkbox" id="FR" name="FR" value="FR" label="FR" checked /><label style="padding-right:10px; padding-left:3px;">FR</label>
+                                    <input type="checkbox" id="SA" name="SA" value="SA" label="SA" checked /><label style="padding-right:10px; padding-left:3px;">SA</label>
                                 </div>
                             </div>
                             <div class="row">
@@ -226,21 +226,24 @@
         }
 
         function initTable() {
+            var chck = $("input:checkbox:checked").map(function () {
+                return $(this).val();
+            }).get().join(); 
 
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("Query", "Schedule", new { area = "" })",
                 data: {
-                    //BuildingNo: $("#BU").val(),
-                    //RoomNo: $("#RO").val(),
+                    BuildingNo: $("#BU").val(),
+                    RoomNo: $("#RO").val(),
+                    Days: chck,
+                    StartTime: $("#timeFrom").val(),
+                    EndTime: $("#timeTo").val(),
+                    //BuildingNo: "320005",
+                    //RoomNo: null,
                     //Days: null,
-                    //StartTime: $("#timeFrom").val(),
-                    //EndTime: $("#timeTo").val(),
-                    BuildingNo: "320005",
-                    RoomNo: null,
-                    Days: null,
-                    StartTime: null,
-                    EndTime: null,
+                    //StartTime: null,
+                    //EndTime: null,
                 },
                 success: function (result) {
                     tHeader(result.header, result.data)
@@ -265,7 +268,8 @@
             var table = $('.dataTables-result').DataTable({
                 "data": result,
                 "searching": false,
-                "ordering": false
+                "ordering": false,
+                "destroy": true
             });
         }
     </script>
