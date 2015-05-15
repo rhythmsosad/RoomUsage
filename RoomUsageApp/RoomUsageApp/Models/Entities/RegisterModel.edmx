@@ -7,81 +7,353 @@
     <Schema Namespace="DB_CHINModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Building">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="BuildingNo" />
           </Key>
-          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Name" Type="nvarchar(max)" />
-          <Property Name="No" Type="nvarchar(max)" />
-          <Property Name="FacultyId" Type="int" />
+          <Property Name="BuildingNo" Type="nchar" MaxLength="15" Nullable="false" />
+          <Property Name="NameTh" Type="nvarchar(max)" />
+          <Property Name="NameEn" Type="nvarchar(max)" />
+          <Property Name="NameAbbr" Type="nvarchar(max)" />
+          <Property Name="NumFloor" Type="int" />
+          <Property Name="NumRoom" Type="int" />
+          <Property Name="FacultyCode" Type="nchar" MaxLength="10" />
+          <Property Name="BelongTo" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
+          <Property Name="NameEngAbbr" Type="nvarchar" MaxLength="255" />
+          <Property Name="FacultyCode" Type="nchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Faculty">
           <Key>
-            <PropertyRef Name="Id" />
+            <PropertyRef Name="Code" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nchar" MaxLength="10" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" />
           <Property Name="AbbrName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Room">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoomNo" Type="nvarchar" MaxLength="255" />
+          <Property Name="NumClassSeat" Type="smallint" />
+          <Property Name="NumExamSeat" Type="smallint" />
+          <Property Name="AtFloor" Type="smallint" />
+          <Property Name="TypeTh" Type="nvarchar(max)" />
+          <Property Name="TypeEn" Type="nvarchar(max)" />
+          <Property Name="BuildingNo" Type="nchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RealReg" Type="int" />
+          <Property Name="TotalReg" Type="int" />
+          <Property Name="TeachType" Type="nchar" MaxLength="10" />
+          <Property Name="Section" Type="smallint" />
+          <Property Name="CourseCode" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="ScheduleTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Day" Type="nchar" MaxLength="2" />
+          <Property Name="StartTime" Type="char" MaxLength="4" />
+          <Property Name="EndTime" Type="char" MaxLength="4" />
+          <Property Name="ScheduleId" Type="bigint" />
+          <Property Name="RoomId" Type="bigint" />
         </EntityType>
         <Association Name="FK_Building_Faculty">
           <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
           <End Role="Building" Type="Self.Building" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Faculty">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Code" />
             </Principal>
             <Dependent Role="Building">
-              <PropertyRef Name="FacultyId" />
+              <PropertyRef Name="FacultyCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Faculty">
+          <End Role="Faculty" Type="Self.Faculty" Multiplicity="0..1" />
+          <End Role="Course" Type="Self.Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="FacultyCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Building">
+          <End Role="Building" Type="Self.Building" Multiplicity="0..1" />
+          <End Role="Room" Type="Self.Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingNo" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="BuildingNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Course">
+          <End Role="Course" Type="Self.Course" Multiplicity="0..1" />
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="CourseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleTime_Room">
+          <End Role="Room" Type="Self.Room" Multiplicity="0..1" />
+          <End Role="ScheduleTime" Type="Self.ScheduleTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleTime">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleTime_Schedule">
+          <End Role="Schedule" Type="Self.Schedule" Multiplicity="0..1" />
+          <End Role="ScheduleTime" Type="Self.ScheduleTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleTime">
+              <PropertyRef Name="ScheduleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="DB_CHINModelStoreContainer">
           <EntitySet Name="Building" EntityType="Self.Building" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="Course" EntityType="Self.Course" Schema="chula" store:Type="Tables" />
           <EntitySet Name="Faculty" EntityType="Self.Faculty" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="Room" EntityType="Self.Room" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="Schedule" EntityType="Self.Schedule" Schema="chula" store:Type="Tables" />
+          <EntitySet Name="ScheduleTime" EntityType="Self.ScheduleTime" Schema="chula" store:Type="Tables" />
           <AssociationSet Name="FK_Building_Faculty" Association="Self.FK_Building_Faculty">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Building" EntitySet="Building" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Faculty" Association="Self.FK_Course_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Room_Building" Association="Self.FK_Room_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Course" Association="Self.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleTime_Room" Association="Self.FK_ScheduleTime_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="ScheduleTime" EntitySet="ScheduleTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleTime_Schedule" Association="Self.FK_ScheduleTime_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleTime" EntitySet="ScheduleTime" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DB_CHINModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="Faculty">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="AbbrName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Building" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Faculty" ToRole="Building" />
-        </EntityType>
         <EntityContainer Name="DB_CHINEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Faculty" EntityType="Self.Faculty" />
           <EntitySet Name="Building" EntityType="DB_CHINModel.Building" />
+          <EntitySet Name="Course" EntityType="DB_CHINModel.Course" />
+          <EntitySet Name="Faculty" EntityType="DB_CHINModel.Faculty" />
+          <EntitySet Name="Room" EntityType="DB_CHINModel.Room" />
+          <EntitySet Name="Schedule" EntityType="DB_CHINModel.Schedule" />
+          <EntitySet Name="ScheduleTime" EntityType="DB_CHINModel.ScheduleTime" />
           <AssociationSet Name="FK_Building_Faculty" Association="DB_CHINModel.FK_Building_Faculty">
             <End Role="Faculty" EntitySet="Faculty" />
             <End Role="Building" EntitySet="Building" />
           </AssociationSet>
+          <AssociationSet Name="FK_Room_Building" Association="DB_CHINModel.FK_Room_Building">
+            <End Role="Building" EntitySet="Building" />
+            <End Role="Room" EntitySet="Room" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Course_Faculty" Association="DB_CHINModel.FK_Course_Faculty">
+            <End Role="Faculty" EntitySet="Faculty" />
+            <End Role="Course" EntitySet="Course" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Schedule_Course" Association="DB_CHINModel.FK_Schedule_Course">
+            <End Role="Course" EntitySet="Course" />
+            <End Role="Schedule" EntitySet="Schedule" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleTime_Room" Association="DB_CHINModel.FK_ScheduleTime_Room">
+            <End Role="Room" EntitySet="Room" />
+            <End Role="ScheduleTime" EntitySet="ScheduleTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ScheduleTime_Schedule" Association="DB_CHINModel.FK_ScheduleTime_Schedule">
+            <End Role="Schedule" EntitySet="Schedule" />
+            <End Role="ScheduleTime" EntitySet="ScheduleTime" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Building">
+          <Key>
+            <PropertyRef Name="BuildingNo" />
+          </Key>
+          <Property Name="BuildingNo" Type="String" Nullable="false" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="NameTh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NameEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NameAbbr" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumFloor" Type="Int32" />
+          <Property Name="NumRoom" Type="Int32" />
+          <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="BelongTo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Faculty" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Building" ToRole="Faculty" />
+          <NavigationProperty Name="Room" Relationship="DB_CHINModel.FK_Room_Building" FromRole="Building" ToRole="Room" />
+        </EntityType>
+        <EntityType Name="Course">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="NameEngAbbr" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="FacultyCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Faculty" Relationship="DB_CHINModel.FK_Course_Faculty" FromRole="Course" ToRole="Faculty" />
+          <NavigationProperty Name="Schedule" Relationship="DB_CHINModel.FK_Schedule_Course" FromRole="Course" ToRole="Schedule" />
+        </EntityType>
+        <EntityType Name="Faculty">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Code" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="AbbrName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Building" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Faculty" ToRole="Building" />
+          <NavigationProperty Name="Course" Relationship="DB_CHINModel.FK_Course_Faculty" FromRole="Faculty" ToRole="Course" />
+        </EntityType>
+        <EntityType Name="Room">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="No" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="FacultyId" Type="Int32" />
-          <NavigationProperty Name="Faculty" Relationship="DB_CHINModel.FK_Building_Faculty" FromRole="Building" ToRole="Faculty" />
+          <Property Name="RoomNo" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="NumClassSeat" Type="Int16" />
+          <Property Name="NumExamSeat" Type="Int16" />
+          <Property Name="AtFloor" Type="Int16" />
+          <Property Name="TypeTh" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TypeEn" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="BuildingNo" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Building" Relationship="DB_CHINModel.FK_Room_Building" FromRole="Room" ToRole="Building" />
+          <NavigationProperty Name="ScheduleTime" Relationship="DB_CHINModel.FK_ScheduleTime_Room" FromRole="Room" ToRole="ScheduleTime" />
+        </EntityType>
+        <EntityType Name="Schedule">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RealReg" Type="Int32" />
+          <Property Name="TotalReg" Type="Int32" />
+          <Property Name="TeachType" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Section" Type="Int16" />
+          <Property Name="CourseCode" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="Course" Relationship="DB_CHINModel.FK_Schedule_Course" FromRole="Schedule" ToRole="Course" />
+          <NavigationProperty Name="ScheduleTime" Relationship="DB_CHINModel.FK_ScheduleTime_Schedule" FromRole="Schedule" ToRole="ScheduleTime" />
+        </EntityType>
+        <EntityType Name="ScheduleTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Day" Type="String" MaxLength="2" FixedLength="true" Unicode="true" />
+          <Property Name="StartTime" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="EndTime" Type="String" MaxLength="4" FixedLength="true" Unicode="false" />
+          <Property Name="ScheduleId" Type="Int64" />
+          <Property Name="RoomId" Type="Int64" />
+          <NavigationProperty Name="Room" Relationship="DB_CHINModel.FK_ScheduleTime_Room" FromRole="ScheduleTime" ToRole="Room" />
+          <NavigationProperty Name="Schedule" Relationship="DB_CHINModel.FK_ScheduleTime_Schedule" FromRole="ScheduleTime" ToRole="Schedule" />
         </EntityType>
         <Association Name="FK_Building_Faculty">
           <End Type="DB_CHINModel.Faculty" Role="Faculty" Multiplicity="0..1" />
           <End Type="DB_CHINModel.Building" Role="Building" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Faculty">
-              <PropertyRef Name="Id" />
+              <PropertyRef Name="Code" />
             </Principal>
             <Dependent Role="Building">
-              <PropertyRef Name="FacultyId" />
+              <PropertyRef Name="FacultyCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Room_Building">
+          <End Type="DB_CHINModel.Building" Role="Building" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.Room" Role="Room" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Building">
+              <PropertyRef Name="BuildingNo" />
+            </Principal>
+            <Dependent Role="Room">
+              <PropertyRef Name="BuildingNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Course_Faculty">
+          <End Type="DB_CHINModel.Faculty" Role="Faculty" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.Course" Role="Course" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Faculty">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Course">
+              <PropertyRef Name="FacultyCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Schedule_Course">
+          <End Type="DB_CHINModel.Course" Role="Course" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.Schedule" Role="Schedule" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Course">
+              <PropertyRef Name="Code" />
+            </Principal>
+            <Dependent Role="Schedule">
+              <PropertyRef Name="CourseCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleTime_Room">
+          <End Type="DB_CHINModel.Room" Role="Room" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.ScheduleTime" Role="ScheduleTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Room">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleTime">
+              <PropertyRef Name="RoomId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ScheduleTime_Schedule">
+          <End Type="DB_CHINModel.Schedule" Role="Schedule" Multiplicity="0..1" />
+          <End Type="DB_CHINModel.ScheduleTime" Role="ScheduleTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Schedule">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ScheduleTime">
+              <PropertyRef Name="ScheduleId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -91,21 +363,72 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="DB_CHINModelStoreContainer" CdmEntityContainer="DB_CHINEntities">
-          <EntitySetMapping Name="Faculty">
-            <EntityTypeMapping TypeName="DB_CHINModel.Faculty">
-              <MappingFragment StoreEntitySet="Faculty">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="AbbrName" ColumnName="AbbrName" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Building">
             <EntityTypeMapping TypeName="DB_CHINModel.Building">
               <MappingFragment StoreEntitySet="Building">
-                <ScalarProperty Name="FacultyId" ColumnName="FacultyId" />
-                <ScalarProperty Name="No" ColumnName="No" />
+                <ScalarProperty Name="BelongTo" ColumnName="BelongTo" />
+                <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
+                <ScalarProperty Name="NumRoom" ColumnName="NumRoom" />
+                <ScalarProperty Name="NumFloor" ColumnName="NumFloor" />
+                <ScalarProperty Name="NameAbbr" ColumnName="NameAbbr" />
+                <ScalarProperty Name="NameEn" ColumnName="NameEn" />
+                <ScalarProperty Name="NameTh" ColumnName="NameTh" />
+                <ScalarProperty Name="BuildingNo" ColumnName="BuildingNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Course">
+            <EntityTypeMapping TypeName="DB_CHINModel.Course">
+              <MappingFragment StoreEntitySet="Course">
+                <ScalarProperty Name="FacultyCode" ColumnName="FacultyCode" />
+                <ScalarProperty Name="NameEngAbbr" ColumnName="NameEngAbbr" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Faculty">
+            <EntityTypeMapping TypeName="DB_CHINModel.Faculty">
+              <MappingFragment StoreEntitySet="Faculty">
+                <ScalarProperty Name="AbbrName" ColumnName="AbbrName" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Room">
+            <EntityTypeMapping TypeName="DB_CHINModel.Room">
+              <MappingFragment StoreEntitySet="Room">
+                <ScalarProperty Name="BuildingNo" ColumnName="BuildingNo" />
+                <ScalarProperty Name="TypeEn" ColumnName="TypeEn" />
+                <ScalarProperty Name="TypeTh" ColumnName="TypeTh" />
+                <ScalarProperty Name="AtFloor" ColumnName="AtFloor" />
+                <ScalarProperty Name="NumExamSeat" ColumnName="NumExamSeat" />
+                <ScalarProperty Name="NumClassSeat" ColumnName="NumClassSeat" />
+                <ScalarProperty Name="RoomNo" ColumnName="RoomNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Schedule">
+            <EntityTypeMapping TypeName="DB_CHINModel.Schedule">
+              <MappingFragment StoreEntitySet="Schedule">
+                <ScalarProperty Name="CourseCode" ColumnName="CourseCode" />
+                <ScalarProperty Name="Section" ColumnName="Section" />
+                <ScalarProperty Name="TeachType" ColumnName="TeachType" />
+                <ScalarProperty Name="TotalReg" ColumnName="TotalReg" />
+                <ScalarProperty Name="RealReg" ColumnName="RealReg" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ScheduleTime">
+            <EntityTypeMapping TypeName="DB_CHINModel.ScheduleTime">
+              <MappingFragment StoreEntitySet="ScheduleTime">
+                <ScalarProperty Name="RoomId" ColumnName="RoomId" />
+                <ScalarProperty Name="ScheduleId" ColumnName="ScheduleId" />
+                <ScalarProperty Name="EndTime" ColumnName="EndTime" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="Day" ColumnName="Day" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

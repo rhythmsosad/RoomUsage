@@ -272,6 +272,17 @@ namespace RoomUsageApp
             // jsTree styles
             bundles.Add(new StyleBundle("~/Content/plugins/jsTree").Include(
                       "~/Content/plugins/jsTree/style.css"));
+
+            // Term Project
+            bundles.Add(new ScriptBundle("~/ScriptsCustom/style").Include(
+                     "~/ScriptsCustom/chosen/chosen.min.css",
+                     "~/ScriptsCustom/jquery-timepicker-master/jquery.timepicker.css"
+                     ));
+
+            bundles.Add(new ScriptBundle("~/ScriptsCustom/library").Include(
+                      "~/ScriptsCustom/chosen/chosen.jquery.min.js",
+                      "~/ScriptsCustom/jquery-timepicker-master/jquery.timepicker.min.js"
+                      ));
         }
     }
 }

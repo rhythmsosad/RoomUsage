@@ -25,7 +25,11 @@ namespace RoomUsageApp.Models.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Faculty> Faculty { get; set; }
         public virtual DbSet<Building> Building { get; set; }
+        public virtual DbSet<Course> Course { get; set; }
+        public virtual DbSet<Faculty> Faculty { get; set; }
+        public virtual DbSet<Room> Room { get; set; }
+        public virtual DbSet<Schedule> Schedule { get; set; }
+        public virtual DbSet<ScheduleTime> ScheduleTime { get; set; }
     }
 }

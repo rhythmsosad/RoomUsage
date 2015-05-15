@@ -12,22 +12,20 @@ namespace RoomUsageApp.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Faculty
+    public partial class Course
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Faculty()
+        public Course()
         {
-            this.Building = new HashSet<Building>();
-            this.Course = new HashSet<Course>();
+            this.Schedule = new HashSet<Schedule>();
         }
     
         public string Code { get; set; }
-        public string Name { get; set; }
-        public string AbbrName { get; set; }
+        public string NameEngAbbr { get; set; }
+        public string FacultyCode { get; set; }
     
+        public virtual Faculty Faculty { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Building> Building { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Course> Course { get; set; }
+        public virtual ICollection<Schedule> Schedule { get; set; }
     }
 }

@@ -208,6 +208,34 @@
     <Content Include="Content\plugins\toastr\toastr.min.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\style.css" />
+    <Content Include="ScriptsCustom\chosen\chosen-sprite%402x.png" />
+    <Content Include="ScriptsCustom\chosen\chosen-sprite.png" />
+    <Content Include="ScriptsCustom\chosen\chosen.css" />
+    <Content Include="ScriptsCustom\chosen\chosen.jquery.js" />
+    <Content Include="ScriptsCustom\chosen\chosen.jquery.min.js" />
+    <Content Include="ScriptsCustom\chosen\chosen.min.css" />
+    <Content Include="ScriptsCustom\chosen\chosen.proto.js" />
+    <Content Include="ScriptsCustom\chosen\chosen.proto.min.js" />
+    <Content Include="ScriptsCustom\chosen\docsupport\chosen.png" />
+    <Content Include="ScriptsCustom\chosen\docsupport\oss-credit.png" />
+    <Content Include="ScriptsCustom\chosen\docsupport\prism.css" />
+    <Content Include="ScriptsCustom\chosen\docsupport\prism.js" />
+    <Content Include="ScriptsCustom\chosen\docsupport\style.css" />
+    <Content Include="ScriptsCustom\chosen\index.html" />
+    <Content Include="ScriptsCustom\chosen\index.proto.html" />
+    <Content Include="ScriptsCustom\chosen\options.html" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\.gitignore" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\GruntFile.js" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\index.html" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\jquery.timepicker.css" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\jquery.timepicker.js" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\jquery.timepicker.min.js" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\bootstrap-datepicker.css" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\bootstrap-datepicker.js" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\glyphicons-halflings.png" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\screenshot.png" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\site.css" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\lib\site.js" />
     <Content Include="fonts\font-awesome\css\font-awesome.css" />
     <Content Include="fonts\font-awesome\css\font-awesome.min.css" />
     <Content Include="fonts\font-awesome\fonts\fontawesome-webfont.svg" />
@@ -289,6 +317,11 @@
     <Content Include="Models\Entities\RegisterModel.edmx.diagram">
       <DependentUpon>RegisterModel.edmx</DependentUpon>
     </Content>
+    <Content Include="ScriptsCustom\jquery-timepicker-master\bower.json" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\jt.timepicker.jquery.json" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\package.json" />
+    <Content Include="ScriptsCustom\jquery-timepicker-master\README.md" />
+    <Content Include="ScriptsCustom\chosen\bower.json" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -710,7 +743,9 @@
     <Compile Include="Classes\teeValidaton.cs" />
     <Compile Include="Classes\tonValidation.cs" />
     <Compile Include="Classes\ValidationBase.cs" />
+    <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
+    <Compile Include="Controllers\RoomController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -719,8 +754,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\HMTLHelperExtensions.cs" />
+    <Compile Include="Models\BuildingModel.cs" />
     <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\Entities\Building.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Course.cs">
       <DependentUpon>RegisterModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\Faculty.cs">
@@ -741,7 +780,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>RegisterModel.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Room.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Schedule.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\ScheduleTime.cs">
+      <DependentUpon>RegisterModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\memberClass.cs" />
+    <Compile Include="Models\ReportTableModel.cs" />
+    <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -802,6 +852,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Building\" />
+    <Folder Include="Views\Room\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
