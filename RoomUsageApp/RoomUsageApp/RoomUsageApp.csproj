@@ -747,6 +747,7 @@
     <Compile Include="Controllers\BuildingController.cs" />
     <Compile Include="Controllers\ImportController.cs" />
     <Compile Include="Controllers\RoomController.cs" />
+    <Compile Include="Controllers\RoomEfficiencyController.cs" />
     <Compile Include="Controllers\ScheduleController.cs" />
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
@@ -794,6 +795,7 @@
     <Compile Include="Models\ReportChartByTypeModel.cs" />
     <Compile Include="Models\ReportModelBase.cs" />
     <Compile Include="Models\ReportTableModel.cs" />
+    <Compile Include="Models\RoomEfficiency.cs" />
     <Compile Include="Models\RoomModel.cs" />
     <Compile Include="Models\Schedule.cs" />
     <Compile Include="Models\ScheduleItem.cs" />
@@ -847,6 +849,7 @@
     <Content Include="Views\Test\ViewTest.cshtml" />
     <Content Include="Views\Member\Index.cshtml" />
     <Content Include="Views\Schedule\Index.cshtml" />
+    <Content Include="Views\RoomEfficiency\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
