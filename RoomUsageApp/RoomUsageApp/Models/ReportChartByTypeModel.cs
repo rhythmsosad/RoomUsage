@@ -9,11 +9,18 @@ namespace RoomUsageApp.Models
 {
     public class ReportChartByTypeModel : ReportModelBase
     {
+
+        public string Labels { get; set; }
+        public string DataHours { get; set; }
+        public string DataSeat { get; set; }
+
+        public string DataEff { get; set; }
+
         public void QueryReportAllFaculty()
         {
             using (var entities = new DB_CHINEntities())
             {
-                
+                // Hour Used
                 var roomByFac = from tRoom in entities.Room
                                 join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
                                 join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
@@ -45,23 +52,92 @@ namespace RoomUsageApp.Models
                            };
                 List<ReportChartByTypeModelItem> usedList = used.ToList();
 
-                //usedList.ToList().ForEach(o => o.HoursUsed = GetTimeSpan(o.EndTime).Subtract(GetTimeSpan(o.StartTime)).TotalHours);
                 int i;
-                for(i = 0; i < usedList.Count; i++)
+                for (i = 0; i < usedList.Count; i++)
                 {
                     string endTime = usedList[i].EndTime;
                     string startTime = usedList[i].StartTime;
 
                     usedList[i].HoursUsed = GetTimeSpan(endTime, startTime).TotalHours;
                 }
-                
-                // By Faculty
-                List<ReportChartByFaculty> summaryList = roomByFac.ToList().Select(o => new ReportChartByFaculty() {
+
+                List<ReportChartByFaculty_Hour> summaryList = roomByFac.ToList().Select(o => new ReportChartByFaculty_Hour()
+                {
                     FacultyCode = o.FacultyCode,
                     FaculyName = o.FacultyName,
                     HoursAvailable = o.HourAvailable,
-                    HoursUsed = usedList.Where(x => x.FacultyCode == o.FacultyCode).Select(x => x.HoursUsed).Sum()
+                    HoursUsed = usedList.Where(x => x.FacultyCode == o.FacultyCode).Select(x => x.HoursUsed).Sum(),
+                    HoursRatio = Math.Round((double)usedList.Where(x => x.FacultyCode == o.FacultyCode).Select(x => x.HoursUsed).Sum() / (double)o.HourAvailable, 2),
+                    HoursPercent = Math.Round(((double)usedList.Where(x => x.FacultyCode == o.FacultyCode).Select(x => x.HoursUsed).Sum() / (double)o.HourAvailable) * 100, 2)
                 }).ToList();
+
+
+                // Room Capability
+                var capByFac = from tTime in entities.ScheduleTime
+                               join tSchedule in entities.Schedule on tTime.ScheduleId equals tSchedule.Id
+                               join tRoom in entities.Room on tTime.RoomId equals tRoom.Id
+                               join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
+                               join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
+                               where tTime.StartTime != null &&
+                                   tTime.EndTime != null &&
+                                   tTime.RoomId != null
+                               group tRoom by new { tBuilding.FacultyCode, tFaculty.Name } into tTable
+                               select new
+                               {
+                                   FacultyCode = tTable.Key.FacultyCode,
+                                   FacultyName = tTable.Key.Name,
+                                   SeatAvailable = tTable.Sum(o => o.NumClassSeat)
+                               };
+                capByFac.ToList();
+
+                var capUsedByFac = from tTime in entities.ScheduleTime
+                                   join tSchedule in entities.Schedule on tTime.ScheduleId equals tSchedule.Id
+                                   join tRoom in entities.Room on tTime.RoomId equals tRoom.Id
+                                   join tBuilding in entities.Building on tRoom.BuildingNo equals tBuilding.BuildingNo
+                                   join tFaculty in entities.Faculty on tBuilding.FacultyCode equals tFaculty.Code
+                                   where tTime.StartTime != null &&
+                                       tTime.EndTime != null &&
+                                       tTime.RoomId != null
+                                   group tSchedule by new { tBuilding.FacultyCode, tFaculty.Name } into tTable
+                                   select new
+                                   {
+                                       FacultyCode = tTable.Key.FacultyCode,
+                                       FacultyName = tTable.Key.Name,
+                                       SeatUsed = tTable.Sum(o => o.RealReg)
+                                   };
+                capUsedByFac.ToList();
+
+                var capSummary = from tAvailable in capByFac
+                                 join tUsed in capUsedByFac on tAvailable.FacultyCode equals tUsed.FacultyCode
+                                 select new ReportChartByFaculty_Seat()
+                                 {
+                                     FacultyCode = tAvailable.FacultyCode,
+                                     FaculyName = tAvailable.FacultyName,
+                                     SeatAvailable = tAvailable.SeatAvailable.Value,
+                                     SeatUsed = tUsed.SeatUsed.Value,
+                                     SeatRatio = Math.Round((double)tUsed.SeatUsed.Value / (double)tAvailable.SeatAvailable.Value, 2),
+                                     SeatPercent = Math.Round(((double)tUsed.SeatUsed.Value / (double)tAvailable.SeatAvailable.Value) * 100, 2)
+                                 };
+                List<ReportChartByFaculty_Seat> capSummaryList = capSummary.ToList();
+
+                List<Faculty> allFaculty = entities.Faculty.ToList();
+
+                var allSummary = from tFac in allFaculty
+                                 join tHour in summaryList on tFac.Code equals tHour.FacultyCode
+                                 join tSeat in capSummaryList on tFac.Code equals tSeat.FacultyCode
+                                 select new ReportChartByFaculty_Summary()
+                                 {
+                                     FacultyCode = tFac.Code,
+                                     FaculyName = tFac.Name,
+                                     HoursPercent = tHour.HoursPercent,
+                                     SeatPercent = tSeat.SeatPercent,
+                                     EffPercent = (tHour.HoursRatio * tSeat.SeatRatio) * 100
+                                 };
+
+                Labels = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => string.Format("\"{0}\"", o.FaculyName).ToArray())));
+                DataHours = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.HoursPercent).ToArray()));
+                DataSeat = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.SeatPercent).ToArray()));
+                DataEff = string.Format("[{0}]", string.Join(", ", allSummary.Select(o => o.EffPercent).ToArray()));
             }
         }
 
@@ -86,7 +162,7 @@ namespace RoomUsageApp.Models
         }
     }
 
-    public class ReportChartByFaculty
+    public class ReportChartByFaculty_Hour
     {
         public string FacultyCode { get; set; }
         public string FaculyName { get; set; }
@@ -94,6 +170,28 @@ namespace RoomUsageApp.Models
         public double HoursUsed { get; set; }
         public double HoursAvailable { get; set; }
         public double HoursPercent { get; set; }
+        public double HoursRatio { get; set; }
+    }
+
+    public class ReportChartByFaculty_Seat
+    {
+        public string FacultyCode { get; set; }
+        public string FaculyName { get; set; }
+
+        public double SeatUsed { get; set; }
+        public double SeatAvailable { get; set; }
+        public double SeatPercent { get; set; }
+        public double SeatRatio { get; set; }
+    }
+
+    public class ReportChartByFaculty_Summary
+    {
+        public string FacultyCode { get; set; }
+        public string FaculyName { get; set; }
+
+        public double HoursPercent { get; set; }
+        public double SeatPercent { get; set; }
+        public double EffPercent { get; set; }
     }
 
     public class ReportChartByTypeModelItem
