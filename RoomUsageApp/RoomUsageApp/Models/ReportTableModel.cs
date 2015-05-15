@@ -29,10 +29,10 @@ namespace RoomUsageApp.Models
                 List<string> days = new List<string>() { "MO", "TU", "WE", "TH", "FR", "SA", "SU" };
                 //List<string> days = new List<string>() { "MO" };
 
-                //if(Days != null && Days.Length > 0)
-                //{
-                //    days = Days.ToList();
-                //}
+                if (Days != null && Days.Length > 0)
+                {
+                    days = Days.ToList();
+                }
 
                 DataTable dt = new DataTable();
 
