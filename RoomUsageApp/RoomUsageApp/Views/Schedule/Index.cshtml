@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="form-group">
                                     <div class="col-sm-3">
-                                        <button type="button" class="btn btn-outline btn-primary">Search</button>
+                                        <button id="button" name="button" type="button" class="btn btn-outline btn-primary">Search</button>
                                     </div>
                                 </div>
                             </div>
@@ -157,6 +157,10 @@
             initTable();
         });
 
+        $('#button').on('click', function () {
+            initTable();
+
+        });
         function initSearch() {
             initBuilding();
             initRoom();
@@ -166,7 +170,9 @@
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("BuildingLut", "Building", new { area = "" })",
-                data: {},
+                data: {
+
+                },
                 success: function (data, textStatus, jqXHR) {
                     //console.log(data);
                     $("#BU").empty();
@@ -215,20 +221,28 @@
         }
 
         function initTime() {
-            $('#timeFrom').timepicker({ 'timeFormat': 'H:i:s' });
-            $('#timeTo').timepicker({ 'timeFormat': 'H:i:s' });
+            $('#timeFrom').timepicker({ 'timeFormat': 'H:i' });
+            $('#timeTo').timepicker({ 'timeFormat': 'H:i' });
         }
 
         function initTable() {
 
             $.ajax({
                 type: "POST",
-                url: "@Url.Action("Table", "Schedule", new { area = "" })",
-                data: {},
-                success: function (result) {
-                    tBody(result);
+                url: "@Url.Action("Query", "Schedule", new { area = "" })",
+                data: {
+                    BuildingNo: $("#BU").val(),
+                    RoomNo: $("#RO").val(),
+                    Days: null,
+                    StartTime: $("#timeFrom").val(),
+                    EndTime: $("#timeTo").val(),
                 },
-                error: function () {
+                success: function (result) {
+                    console.log("111", result);
+                    // tBody(result);
+                },
+                error: function (error) {
+                    console.log("111", error);
                 }
             });
             //tHeader();
