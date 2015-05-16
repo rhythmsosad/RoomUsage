@@ -23,14 +23,14 @@
                                     </div>
 
                                 </div>
-                                @*<div class="row">
-                                        <div class="form-group">
-                                            <label for="BU" class="col-sm-1 control-label">Building</label>
-                                            <div class="col-sm-4">
-                                                <select class="form-control m-b" name="BU" id="BU" data-placeholder="Select a Building"></select>
-                                            </div>
+                                <div class="row">
+                                    <div class="form-group">
+                                        <label for="BU" class="col-sm-1 control-label">Building</label>
+                                        <div class="col-sm-4">
+                                            <select class="form-control m-b" name="BU" id="BU" data-placeholder="Select a Building"></select>
                                         </div>
-                                    </div>*@
+                                    </div>
+                                </div>
                                 @*<div class="row">
                                         <div class="form-group">
                                             <label for="RO" class="col-sm-1 control-label">Room</label>
@@ -116,7 +116,17 @@
     <script type="text/javascript">
         $(function () {
             initFaculty();
-            //initBuilding();
+
+            var fc = "@Model.FC";
+            if(fc.length > 0)
+            {
+                initBuilding(fc);
+            }
+            else
+            {
+                initBuilding(null);
+            }
+            
             //initRoom();
             //initChart();
             //initChart2();
@@ -157,7 +167,7 @@
                     $("#FC").chosen().change(function () {
                         //initBranch($(this).val());
                         //initDept($(this).val());
-                        //initBuilding($(this).val());
+                        initBuilding($(this).val());
                     });
                 },
                 dataType: "json"
@@ -181,6 +191,13 @@
                         }
                         opt.appendTo('#BU');
                     });
+
+                    var bu = "@Model.BU";
+                    if(bu.length > 0)
+                    {
+                        $("#BU").val(bu);
+                    }
+
                     $("#BU").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
                     $("#BU").chosen().change(function () {
                         //initBranch($(this).val());

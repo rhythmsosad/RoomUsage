@@ -22,7 +22,11 @@ namespace RoomUsageApp.Controllers
         //[OutputCache(Duration = 600)]
         public ActionResult Index(ReportChartByTypeModel model)
         {
-            if(!string.IsNullOrEmpty(model.FC))
+            if(!string.IsNullOrEmpty(model.BU))
+            {
+                model.QueryReportByBuilding(model.FC, model.BU);
+            }
+            else if(!string.IsNullOrEmpty(model.FC))
             {
                 model.QueryReportByFaculty(model.FC);
             }
