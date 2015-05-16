@@ -72,70 +72,68 @@ namespace RoomUsageApp.Controllers
                         DataValidation validator = new DataValidation(result.Tables[0]);
                         bool validateResult = validator.IsValid();
 
-                        using (var entities = new DB_CHINEntities())
+                        if(validateResult)
                         {
-                            using (var transaction = entities.Database.BeginTransaction())
+                            using (var entities = new DB_CHINEntities())
                             {
-                                try
+                                using (var transaction = entities.Database.BeginTransaction())
                                 {
-                                    TypeConverter convDouble = TypeDescriptor.GetConverter(typeof(double?));
+                                    try
+                                    {
+                                        TypeConverter convDouble = TypeDescriptor.GetConverter(typeof(double?));
 
-                                    entities.DELETE_REGTEMP();
+                                        entities.DELETE_REGTEMP();
 
-                                    entities.RegistrationTemp.AddRange(result.Tables[0].AsEnumerable().Where(o => o["YEAR"].ToString().Length > 0).Select(o => new RegistrationTemp() {
-                                        BUILDINGNAME = o["BUILDINGNAME"].ToString(),
-                                        BUILDINGNO = o["BUILDINGNO"].ToString(),
-                                        COURSECODE = (double?)convDouble.ConvertFrom(o["COURSECODE"].ToString()),
-                                        DAY1 = o["DAY1"].ToString(),
-                                        DAY2 = o["DAY2"].ToString(),
-                                        DAY3 = o["DAY3"].ToString(),
-                                        DAY4 = o["DAY4"].ToString(),
-                                        DAY5 = o["DAY5"].ToString(),
-                                        DAY6 = o["DAY6"].ToString(),
-                                        DAY7 = o["DAY7"].ToString(),
-                                        ENDTIME = o["ENDTIME"].ToString(),
-                                        FACABBR = o["FACABBR"].ToString(),
-                                        FACCODE = (double?)convDouble.ConvertFrom(o["FACCODE"].ToString()),
-                                        FACNAME = o["FACNAME"].ToString(),
-                                        NAMEENGABBR = o["NAMEENGABBR"].ToString(),
-                                        NUMCLASSSEAT = (double?)convDouble.ConvertFrom(o["NUMCLASSSEAT"].ToString()),
-                                        REALREG = (double?)convDouble.ConvertFrom(o["REALREG"].ToString()),
-                                        ROOMNO = o["ROOMNO"].ToString(),
-                                        ROOMTYPE = o["ROOMTYPE"].ToString(),
-                                        SECTION = (double?)convDouble.ConvertFrom(o["SECTION"].ToString()),
-                                        SEMESTER = (double?)convDouble.ConvertFrom(o["SEMESTER"].ToString()),
-                                        STARTTIME = o["STARTTIME"].ToString(),
-                                        STUDYPROGRAM = o["STUDYPROGRAM"].ToString(),
-                                        TEACHTYPE = o["TEACHTYPE"].ToString(),
-                                        TOTALREG = (double?)convDouble.ConvertFrom(o["TOTALREG"].ToString()),
-                                        YEAR = (double?)convDouble.ConvertFrom(o["YEAR"].ToString())
-                                    }).ToList());
+                                        entities.RegistrationTemp.AddRange(result.Tables[0].AsEnumerable().Where(o => o["YEAR"].ToString().Length > 0).Select(o => new RegistrationTemp()
+                                        {
+                                            BUILDINGNAME = o["BUILDINGNAME"].ToString(),
+                                            BUILDINGNO = o["BUILDINGNO"].ToString(),
+                                            COURSECODE = (double?)convDouble.ConvertFrom(o["COURSECODE"].ToString()),
+                                            DAY1 = o["DAY1"].ToString(),
+                                            DAY2 = o["DAY2"].ToString(),
+                                            DAY3 = o["DAY3"].ToString(),
+                                            DAY4 = o["DAY4"].ToString(),
+                                            DAY5 = o["DAY5"].ToString(),
+                                            DAY6 = o["DAY6"].ToString(),
+                                            DAY7 = o["DAY7"].ToString(),
+                                            ENDTIME = o["ENDTIME"].ToString(),
+                                            FACABBR = o["FACABBR"].ToString(),
+                                            FACCODE = (double?)convDouble.ConvertFrom(o["FACCODE"].ToString()),
+                                            FACNAME = o["FACNAME"].ToString(),
+                                            NAMEENGABBR = o["NAMEENGABBR"].ToString(),
+                                            NUMCLASSSEAT = (double?)convDouble.ConvertFrom(o["NUMCLASSSEAT"].ToString()),
+                                            REALREG = (double?)convDouble.ConvertFrom(o["REALREG"].ToString()),
+                                            ROOMNO = o["ROOMNO"].ToString(),
+                                            ROOMTYPE = o["ROOMTYPE"].ToString(),
+                                            SECTION = (double?)convDouble.ConvertFrom(o["SECTION"].ToString()),
+                                            SEMESTER = (double?)convDouble.ConvertFrom(o["SEMESTER"].ToString()),
+                                            STARTTIME = o["STARTTIME"].ToString(),
+                                            STUDYPROGRAM = o["STUDYPROGRAM"].ToString(),
+                                            TEACHTYPE = o["TEACHTYPE"].ToString(),
+                                            TOTALREG = (double?)convDouble.ConvertFrom(o["TOTALREG"].ToString()),
+                                            YEAR = (double?)convDouble.ConvertFrom(o["YEAR"].ToString())
+                                        }).ToList());
 
-                                    entities.SaveChanges();
+                                        entities.SaveChanges();
 
-                                    entities.IMPORT_DATA();
+                                        entities.IMPORT_DATA();
 
-                                    transaction.Commit();
-                                }
-                                catch (Exception ex)
-                                {
-                                    transaction.Rollback();
-                                }
-                                finally
-                                {
+                                        transaction.Commit();
 
+                                        excelReader.Close();
+                                        return Json(new { Message = "Import Success" });
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        transaction.Rollback();
+                                        excelReader.Close();
+
+                                        return Json(new { Message = string.Format("Error : {0}", Core.CoreFunction.InnermostException(ex)) });
+                                    }
                                 }
                             }
                         }
-
-                        excelReader.Close();
-
-                        //string html = sb.ToString();
-                        if (validateResult)
-                        {
-                            return Json(new { Message = "Import Success" });
-                        }
-                        else
+                        else // Validation Fail
                         {
                             return Json(new { Message = string.Format("Data is not valid : {0}", string.Join("<br />", validator.ErrorMessage.ToArray())) });
                         }

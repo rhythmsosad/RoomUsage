@@ -739,7 +739,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Classes\CheckFormatTime.cs" />
-    <Compile Include="Classes\ClassCodeValidation.cs" />
+    <Compile Include="Classes\DuplicateCourseValidation.cs" />
     <Compile Include="Classes\DataValidation.cs" />
     <Compile Include="Classes\ReportTimePeriod.cs" />
     <Compile Include="Classes\NumberValidaton.cs" />
@@ -755,6 +755,7 @@
     <Compile Include="Controllers\Test2Controller.cs" />
     <Compile Include="Controllers\TestController.cs" />
     <Compile Include="Controllers\memberController.cs" />
+    <Compile Include="Core\CoreFunction.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

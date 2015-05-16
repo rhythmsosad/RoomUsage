@@ -31,7 +31,8 @@ namespace RoomUsageApp.Classes
             List<ValidationBase> rules = new List<ValidationBase>()
             {
                 new DayValidation() { data = data },
-                new NumberValidaton() { data = data }
+                //new NumberValidaton() { data = data },
+                new DuplicateCourseValidation() { data = data }
                 //,
                 //new CheckFormatTime() { data = data }
             };
