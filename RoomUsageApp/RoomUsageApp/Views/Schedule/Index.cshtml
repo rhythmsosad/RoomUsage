@@ -1,7 +1,7 @@
 ﻿@model RoomUsageApp.Models.ReportTableModel
 
 @{
-    // ViewBag.Title = "Index";
+// ViewBag.Title = "Index";
 }
 <form id="mainForm" name="mainForm">
     <div class="row">
@@ -126,24 +126,24 @@
                                             </div>
                                         </div>
                                         <div class="ibox-content">
-
+                                            <div class="table-responsive">
+                                                <table class="table table-striped table-bordered table-hover dataTables-result">
+                                                    <thead>
+                                                        <tr id="headerGen">
+                                                            @*<th>ชื่อ</th>
+                                                                <th>สกุล</th>*@
+                                                            @*<th>หน่วยงาน</th>
+                                                                <th>อีเมล์</th>
+                                                                <th>เบอร์ติดต่อ</th>
+                                                                <th>บัญชีผู้ใช้งาน</th>
+                                                                <th>สถานะ</th>
+                                                                <th></th>*@
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody></tbody>
+                                                </table>
+                                            </div>
                                             @*<table class="table table-striped table-bordered table-hover dataTables-example">*@
-                                            <table class="table table-striped table-bordered table-hover dataTables-result">
-                                                <thead>
-                                                    <tr id="headerGen">
-                                                        @*<th>ชื่อ</th>
-                                                            <th>สกุล</th>*@
-                                                        @*<th>หน่วยงาน</th>
-                                                            <th>อีเมล์</th>
-                                                            <th>เบอร์ติดต่อ</th>
-                                                            <th>บัญชีผู้ใช้งาน</th>
-                                                            <th>สถานะ</th>
-                                                            <th></th>*@
-                                                    </tr>
-                                                </thead>
-                                                <tbody></tbody>
-                                            </table>
-
                                         </div>
                                     </div>
                                 </div>
@@ -336,8 +336,9 @@
                 "data": result,
                 "searching": false,
                 "ordering": false,
-                "destroy": true,
-                "bPaginate": false
+                "destroy": true
+                //,
+                //"bPaginate": false
             });
         }
     </script>

@@ -16,5 +16,6 @@ namespace RoomUsageApp.Models
         public string BuildingNo { get; set; }
         public string BuildingFacCode { get; set; }
         public string BuildingFacName { get; set; }
+        public short? Seat { get; set; }
     }
 }

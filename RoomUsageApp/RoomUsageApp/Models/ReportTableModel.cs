@@ -40,11 +40,11 @@ namespace RoomUsageApp.Models
                               join tRoom in entities.Room on tST.RoomId equals tRoom.Id
                               where tRoom.BuildingNo == BuildingNo &&
                                 (string.IsNullOrEmpty(RoomNo) || tRoom.RoomNo == RoomNo)
-                              select new { RoomId = tST.RoomId, RoomNo = tRoom.RoomNo };
+                              select new { RoomId = tST.RoomId, RoomNo = tRoom.RoomNo, Seat = tRoom.NumClassSeat };
 
                 dt.Columns.Add("Day");
                 dt.Columns.Add("Time");
-                dt.Columns.AddRange(allRoom.Select(r => new DataColumn() { ColumnName = !string.IsNullOrEmpty(r.RoomNo) ? r.RoomNo : "ไม่ระบุห้อง" }).Distinct().ToArray());
+                dt.Columns.AddRange(allRoom.Select(r => new DataColumn() { ColumnName = !string.IsNullOrEmpty(r.RoomNo) ? (r.RoomNo + "<br />" + r.Seat + " ที่นั่ง") : "ไม่ระบุห้อง" }).Distinct().ToArray());
 
 
                 var result = from tST in entities.ScheduleTime
@@ -61,10 +61,11 @@ namespace RoomUsageApp.Models
                                  EndTime = tST.EndTime,
                                  RoomNo = tRoom.RoomNo,
                                  CourseCode = tS.CourseCode,
-                                 Section = tS.Section
+                                 Section = tS.Section,
+                                 Seat = tRoom.NumClassSeat
                              };
 
-                result.ToList();
+                //result.ToList();
 
                 //List<ScheduleItem> resultList = result.ToList().Where(o =>
                 //                (string.IsNullOrEmpty(StartTime) || int.Parse(o.StartTime.Replace(":", "")) > int.Parse(StartTime.Replace(":", ""))) &&
@@ -81,7 +82,7 @@ namespace RoomUsageApp.Models
                             dt.Rows.Add(d, string.Format("{0}-{1}", p.From, p.To));
                             foreach (ScheduleItem si in resultList.Where(o => o.Day == d && (p.From >= int.Parse(o.StartTime) && p.From <= int.Parse(o.EndTime)) && (p.To >= int.Parse(o.StartTime) && p.To <= int.Parse(o.EndTime))))
                             {
-                                dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? si.RoomNo : "ไม่ระบุห้อง"] = si.CourseCode.Trim() + " Sec. " + si.Section;
+                                dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? (si.RoomNo + "<br />" + si.Seat + " ที่นั่ง") : "ไม่ระบุห้อง"] = si.CourseCode.Trim() + " Sec. " + si.Section;
                             }
                         }
                     }
