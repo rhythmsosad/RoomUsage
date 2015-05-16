@@ -79,7 +79,7 @@ namespace RoomUsageApp.Models
                     {
                         if(resultList.Where(o => o.Day == d).Count() > 0)
                         {
-                            dt.Rows.Add(d, string.Format("{0}-{1}", p.From, p.To));
+                            dt.Rows.Add(d, GetTimeString(p.From, p.To));
                             foreach (ScheduleItem si in resultList.Where(o => o.Day == d && (p.From >= int.Parse(o.StartTime) && p.From <= int.Parse(o.EndTime)) && (p.To >= int.Parse(o.StartTime) && p.To <= int.Parse(o.EndTime))))
                             {
                                 dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? (si.RoomNo + "<br />" + si.Seat + " ที่นั่ง") : "ไม่ระบุห้อง"] = si.CourseCode.Trim() + " Sec. " + si.Section;
@@ -99,5 +99,20 @@ namespace RoomUsageApp.Models
                 //return dt;
             }
         }
+
+        private string GetTimeString(int from, int to)
+        {
+            string strFrom = from.ToString();
+            string endFrom = to.ToString();
+
+            int minuteEnd = int.Parse(endFrom.Substring(endFrom.Length - 2, 2));
+            int hourEnd = int.Parse(endFrom.Substring(0, endFrom.Length - 2));
+
+            int minuteStart = int.Parse(strFrom.Substring(strFrom.Length - 2, 2));
+            int hourStart = int.Parse(strFrom.Substring(0, strFrom.Length - 2));
+
+            return string.Format("{0}:{1} - {2}:{3}", hourStart.ToString().PadLeft(2, '0'), minuteStart.ToString().PadRight(2, '0'), hourEnd.ToString().PadLeft(2, '0'), minuteEnd.ToString().PadRight(2, '0'));
+        }
+
     }
 }

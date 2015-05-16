@@ -16,6 +16,7 @@ namespace RoomUsageApp.Controllers
         }
 
         [HttpPost]
+        //[OutputCache(Duration = 600)]
         public ActionResult Table()
         {
             //return Json(new {  recordsTotal = 2, recordsFiltered = 2, data = new List<object>() { new { first_name = "first111", last_name = "last111" }, new { first_name = "first222", last_name = "last222" } } });
@@ -27,6 +28,7 @@ namespace RoomUsageApp.Controllers
         }
 
         [HttpPost]
+        //[OutputCache(Duration = 600)]
         public ActionResult Query(ReportTableModel model)
         {
             model.QueryReport();

@@ -325,7 +325,14 @@
             $('#headerGen').empty();
             for (var i = 0 ; i < header.length; i++) {
                 //console.log(i,header[i] )
-                $('#headerGen').append('<th>' + header[i] + '</th>')
+                if (i != 1)
+                {
+                    $('#headerGen').append('<th>' + header[i] + '</th>');
+                }
+                else
+                {
+                    $('#headerGen').append('<th>' + header[i] + '</th>');
+                }
             }
             tBody(data);
 

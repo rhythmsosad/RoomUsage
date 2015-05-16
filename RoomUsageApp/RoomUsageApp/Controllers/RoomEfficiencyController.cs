@@ -10,10 +10,26 @@ namespace RoomUsageApp.Controllers
     public class RoomEfficiencyController : Controller
     {
         // GET: RoomEfficiency
+        //[OutputCache(Duration = 600)]
         public ActionResult Index()
         {
             ReportChartByTypeModel model = new ReportChartByTypeModel();
             model.QueryReportAllFaculty();
+            return View(model);
+        }
+
+        [HttpPost]
+        //[OutputCache(Duration = 600)]
+        public ActionResult Index(ReportChartByTypeModel model)
+        {
+            if(!string.IsNullOrEmpty(model.FC))
+            {
+                model.QueryReportByFaculty(model.FC);
+            }
+            else
+            {
+                model.QueryReportAllFaculty();
+            }
             return View(model);
         }
     }

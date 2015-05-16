@@ -1,43 +1,52 @@
 ﻿@model RoomUsageApp.Models.ReportChartByTypeModel
 
 @{
-    // ViewBag.Title = "Index";
+// ViewBag.Title = "Index";
 }
 <div class="row">
     <div class="col-lg-12">
         <div class="wrapper wrapper-content">
-            <div class="row" style="display:none;">
+            <div class="row">
                 <div class="col-lg-12">
                     <div class="ibox float-e-margins">
                         <div class="ibox-title">
                             <h5>Search</h5>
                         </div>
                         <div class="ibox-content">
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="FC" class="col-sm-1 control-label">Faculty</label>
-                                    <div class="col-sm-4">
-                                        <select class="form-control m-b" name="FC" id="FC" data-placeholder="Select a Faculty"></select>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="row">
-                                <div class="form-group">
-                                    <label for="BU" class="col-sm-1 control-label">Building</label>
-                                    <div class="col-sm-4">
-                                        <select class="form-control m-b" name="BU" id="BU" data-placeholder="Select a Building"></select>
-                                    </div>
-                                </div>
-                            </div>
-                            @*<div class="row">
+                            <form action="@Url.Action("Index", "RoomEfficiency")" method="post">
+                                <div class="row">
                                     <div class="form-group">
-                                        <label for="RO" class="col-sm-1 control-label">Room</label>
+                                        <label for="FC" class="col-sm-1 control-label">Faculty</label>
                                         <div class="col-sm-4">
-                                            <select class="form-control m-b" name="RO" id="RO" data-placeholder="Select a Room"></select>
+                                            <select class="form-control m-b" name="FC" id="FC" data-placeholder="Select a Faculty"></select>
                                         </div>
                                     </div>
-                                </div>*@
+
+                                </div>
+                                @*<div class="row">
+                                        <div class="form-group">
+                                            <label for="BU" class="col-sm-1 control-label">Building</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control m-b" name="BU" id="BU" data-placeholder="Select a Building"></select>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                @*<div class="row">
+                                        <div class="form-group">
+                                            <label for="RO" class="col-sm-1 control-label">Room</label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control m-b" name="RO" id="RO" data-placeholder="Select a Room"></select>
+                                            </div>
+                                        </div>
+                                    </div>*@
+                                <div class="row">
+                                    <div class="form-group">
+                                        <div class="col-sm-3">
+                                            <button id="btnSearch" name="button" type="submit" class="btn btn-outline btn-primary">Search</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -106,13 +115,18 @@
     @Scripts.Render("~/plugins/chartjs")
     <script type="text/javascript">
         $(function () {
-            //initFaculty();
+            initFaculty();
             //initBuilding();
             //initRoom();
             //initChart();
             //initChart2();
             bindChart1();
             bindChart2();
+
+            $("#btnSearch").click(function() {
+
+            });
+
         });
         function initFaculty() {
             $.ajax({
@@ -132,22 +146,29 @@
                         }
                         opt.appendTo('#FC');
                     });
+
+                    var fc = "@Model.FC";
+                    if(fc.length > 0)
+                    {
+                        $("#FC").val(fc);
+                    }
+
                     $("#FC").chosen({ allow_single_deselect: true }).trigger("chosen:updated");;
                     $("#FC").chosen().change(function () {
                         //initBranch($(this).val());
                         //initDept($(this).val());
-                        //initRoom($(this).val());
+                        //initBuilding($(this).val());
                     });
                 },
                 dataType: "json"
             });
         }
-        function initBuilding() {
+        function initBuilding(facultyCode) {
             $.ajax({
                 type: "POST",
                 url: "@Url.Action("BuildingLutByFaculty", "Building", new { area = "" })",
                 data: {
-                    facultyCode: facultyNo
+                    facultyCode: facultyCode
                 },
                 success: function (data, textStatus, jqXHR) {
                     //console.log(data);
@@ -282,7 +303,7 @@
                     //    data: [65, 59, 80, 81, 56, 55, 40]
                     //},
                     {
-                        label: "Used Seat",
+                        label: "Room Efficiency",
                         fillColor: "rgba(26,179,148,0.5)",
                         strokeColor: "rgba(26,179,148,0.8)",
                         highlightFill: "rgba(26,179,148,0.75)",
@@ -303,7 +324,7 @@
                 barValueSpacing: 5,
                 barDatasetSpacing: 1,
                 responsive: true ,
-                multiTooltipTemplate: "<%= datasetLabel %> - <%= value %>"
+                tooltipTemplate: "<%= datasetLabel %> - <%= value %> %"
             }
             var ctx = document.getElementById("barChart2").getContext("2d");
             var myNewChart = new Chart(ctx).Bar(barData, barOptions);
