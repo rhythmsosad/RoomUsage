@@ -82,7 +82,10 @@ namespace RoomUsageApp.Models
                             dt.Rows.Add(d, GetTimeString(p.From, p.To));
                             foreach (ScheduleItem si in resultList.Where(o => o.Day == d && (p.From >= int.Parse(o.StartTime) && p.From <= int.Parse(o.EndTime)) && (p.To >= int.Parse(o.StartTime) && p.To <= int.Parse(o.EndTime))))
                             {
-                                dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? (si.RoomNo + "<br />" + si.Seat + " ที่นั่ง") : "ไม่ระบุห้อง"] = si.CourseCode.Trim() + " Sec. " + si.Section;
+                                if(!dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? (si.RoomNo + "<br />" + si.Seat + " ที่นั่ง") : "ไม่ระบุห้อง"].ToString().Contains(si.CourseCode.Trim() + " Sec. " + si.Section))
+                                {
+                                    dt.Rows[dt.Rows.Count - 1][!string.IsNullOrEmpty(si.RoomNo) ? (si.RoomNo + "<br />" + si.Seat + " ที่นั่ง") : "ไม่ระบุห้อง"] += si.CourseCode.Trim() + " Sec. " + si.Section + "<hr />";
+                                }
                             }
                         }
                     }
